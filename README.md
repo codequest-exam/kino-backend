@@ -1,6 +1,13 @@
 # kino-backend
 Codequest's backend solution for Kino
 
+# Links
+
+Frontend: https://purple-pond-02c74a803.4.azurestaticapps.net/
+
+
+Backend API: https://restfulkino-api.azurewebsites.net/
+
 
 # Group contract:
 
