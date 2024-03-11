@@ -53,7 +53,7 @@ public class SecurityConfig {
 
     http.authorizeHttpRequests((authorize) -> authorize
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/auth/login")).permitAll()
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themself
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-role")).permitAll() //Clients can create a user for themselves
 
             //This is for demo purposes only, and should be removed for a real system
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/demo/anonymous")).permitAll()
@@ -85,6 +85,8 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/showings/*")).hasAnyAuthority("USER", "ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations")).hasAnyAuthority("USER", "ADMIN")
 
+            //ADMIN RIGHTS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/users/*")).hasAnyAuthority("ADMIN")
 
             //Required for error responses
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
