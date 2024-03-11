@@ -67,6 +67,25 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/swagger-resources/**")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/v3/api-docs/**")).permitAll()
 
+            //GET REQUESTS PERMITTED FOR ALL
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/rooms")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/showings")).permitAll()
+
+            //ADDING RESERVATION PERMITTED FOR ALL
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/reservations/*")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/reservations/*")).permitAll()
+
+            //EMPLOYEE RIGHTS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/showings")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/showings/*")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/showings/*")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/showings/*")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations")).hasAnyAuthority("USER", "ADMIN")
+            
+
             //Required for error responses
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
 
