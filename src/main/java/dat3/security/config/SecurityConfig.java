@@ -84,7 +84,7 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/showings/*")).hasAnyAuthority("USER", "ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/showings/*")).hasAnyAuthority("USER", "ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations")).hasAnyAuthority("USER", "ADMIN")
-            
+
 
             //Required for error responses
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
