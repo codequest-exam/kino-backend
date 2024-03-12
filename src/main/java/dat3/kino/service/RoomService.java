@@ -7,6 +7,8 @@ import dat3.kino.repository.ReservationRepository;
 import dat3.kino.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoomService {
 
@@ -19,5 +21,9 @@ public class RoomService {
     public Room addRoom(Room roomToAdd) {
 
         return roomRepository.save(roomToAdd);
+    }
+
+    public List<Room> getAll() {
+        return roomRepository.findAll();
     }
 }
