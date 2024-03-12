@@ -2,11 +2,13 @@ package dat3.kino.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Room {
     @Id
     private Long id;
+    @ManyToOne
     private Cinema cinema;
     private int roomNumber;
     private boolean supports3d;
