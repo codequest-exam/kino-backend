@@ -6,6 +6,8 @@ import dat3.kino.repository.MovieRepository;
 import dat3.kino.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ReservationService {
@@ -19,5 +21,9 @@ public class ReservationService {
     public Reservation addReservation(Reservation reservationToAdd) {
 
         return reservationRepository.save(reservationToAdd);
+    }
+
+    public List<Reservation> findAll() {
+        return reservationRepository.findAll();
     }
 }
