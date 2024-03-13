@@ -26,4 +26,16 @@ public class ReservationService {
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
     }
+
+    public void deleteReservation(Long id) {
+        reservationRepository.deleteById(id);
+    }
+
+    public Reservation findById(Long id) {
+        return reservationRepository.findById(id).orElse(null);
+    }
+
+    public List<Reservation> findByShowingId(Long id) {
+        return reservationRepository.findAllByShowingId(id);
+    }
 }
