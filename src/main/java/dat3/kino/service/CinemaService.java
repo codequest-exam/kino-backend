@@ -18,12 +18,9 @@ public class CinemaService {
         this.cinemaRepository = cinemaRepository;
     }
 
-    public Cinema addCinema(Cinema cinemaToAdd) {
 
-        return cinemaRepository.save(cinemaToAdd);
-    }
 
-    public List<Cinema> getCinema() {
+    public List<Cinema> getCinemas() {
         return cinemaRepository.findAll();
     }
 
@@ -31,9 +28,14 @@ public class CinemaService {
         return cinemaRepository.findById(id).orElse(null);
     }
 
+    public Cinema addCinema(Cinema cinemaToAdd) {
+
+        return cinemaRepository.save(cinemaToAdd);
+    }
+
     public Cinema updateCinema(Cinema cinemaToUpdate, Long id) {
         if (!Objects.equals(cinemaToUpdate.getId(), id)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing recipe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the id of an existing cinema");
         }
 
         Cinema cinemaToEdit = cinemaRepository.findById(id).orElseThrow(()

@@ -19,7 +19,13 @@ public class ReservationService {
     }
 
     public Reservation addReservation(Reservation reservationToAdd) {
-
+//        Long showingId = reservationToAdd.getShowing().getId();
+//        List<Reservation> reservations = reservationRepository.findAllByShowingId(showingId);
+//        for (Reservation reservation : reservations) {
+//            if (reservation.getSeatNumbers().containsAll(reservationToAdd.getSeatNumbers())) {
+//                throw new IllegalArgumentException("Seat is already reserved");
+//            }
+//        }
         return reservationRepository.save(reservationToAdd);
     }
 

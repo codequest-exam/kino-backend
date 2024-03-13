@@ -1,25 +1,42 @@
-import dat3.kino.entity.Cinema;
-import dat3.kino.entity.Movie;
-import dat3.kino.entity.Room;
-import dat3.kino.entity.Showing;
-import dat3.kino.repository.CinemaRepository;
-import dat3.kino.repository.MovieRepository;
-import dat3.kino.repository.RoomRepository;
-import dat3.kino.repository.ShowingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+package dat3.kino.TestData;
 
-public class InitData {
+import dat3.kino.entity.*;
+import dat3.kino.repository.*;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 
-       @Autowired
-       private MovieRepository movieRepository;
-       @Autowired
-       private RoomRepository roomRepository;
-       @Autowired
-       private ShowingRepository showingRepository;
-       @Autowired
-       private CinemaRepository cinemaRepository;
+import java.util.Arrays;
+import java.util.List;
 
-       public void run(String... args) {
+
+@Component
+public class InitData implements ApplicationRunner {
+
+
+       private final MovieRepository movieRepository;
+
+       private final HallRepository hallRepository;
+
+       private final ShowingRepository showingRepository;
+
+       private final CinemaRepository cinemaRepository;
+
+       private final ReservationRepository reservationRepository;
+
+       public InitData(ReservationRepository reservationRepository, MovieRepository movieRepository, HallRepository hallRepository, ShowingRepository showingRepository, CinemaRepository cinemaRepository) {
+              this.movieRepository = movieRepository;
+              this.hallRepository = hallRepository;
+              this.showingRepository = showingRepository;
+              this.cinemaRepository = cinemaRepository;
+              this.reservationRepository = reservationRepository;
+       }
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        setupAll();
+    }
+
+       public void setupAll() {
 
               Movie movie1 = new Movie("The Shawshank Redemption", 142 * 60, true);
               Movie movie2 = new Movie("Inception", 148 * 60, true);
@@ -32,68 +49,64 @@ public class InitData {
               Movie movie9 = new Movie("Fight Club", 139 * 60, false);
               Movie movie10 = new Movie("The Silence of the Lambs", 118 * 60, false);
 
-              movieRepository.save(movie1);
-              movieRepository.save(movie2);
-              movieRepository.save(movie3);
-              movieRepository.save(movie4);
-              movieRepository.save(movie5);
-              movieRepository.save(movie6);
-              movieRepository.save(movie7);
-              movieRepository.save(movie8);
-              movieRepository.save(movie9);
-              movieRepository.save(movie10);
+           movieRepository.saveAll(Arrays.asList(movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10));
 
-              Cinema cinema1 = new Cinema("Cineplex Odeon", "123 Main Street");
+           Cinema cinema1 = new Cinema("Cineplex Odeon", "123 Main Street");
               Cinema cinema2 = new Cinema("AMC Theatres", "456 Elm Street");
 
               cinemaRepository.save(cinema1);
               cinemaRepository.save(cinema2);
 
-              // Creating cinema halls for cinema 1
-              Room hall1 = new Room(cinema1.getId(), 1, true, false, 10, 15);
-              Room hall2 = new Room(cinema1.getId(), 2, true, true, 12, 20);
+               //Creating cinema halls for cinema 1
+              Hall hall1 = new Hall(cinema1, 1, true, false, 10, 15);
+           Hall hall2 = new Hall(cinema1, 2, true, true, 12, 20);
 
               // Creating cinema halls for cinema 2
-              Room hall3 = new Room(cinema2.getId(), 1, false, false, 8, 10);
-              Room hall4 = new Room(cinema2.getId(), 2, true, true, 10, 15);
-              Room hall5 = new Room(cinema2.getId(), 3, true, false, 10, 15);
-              Room hall6 = new Room(cinema2.getId(), 4, false, true, 8, 12);
+           Hall hall3 = new Hall(cinema2, 1, false, false, 8, 10);
+           Hall hall5 = new Hall(cinema2, 3, true, false, 10, 15);
+           Hall hall4 = new Hall(cinema2, 2, true, true, 10, 15);
+           Hall hall6 = new Hall(cinema2, 4, false, true, 8, 12);
 
               // Saving cinema halls to the repository
-              roomRepository.save(hall1);
-              roomRepository.save(hall2);
-              roomRepository.save(hall3);
-              roomRepository.save(hall4);
-              roomRepository.save(hall5);
-              roomRepository.save(hall6);
-
+              hallRepository.save(hall1);
+              hallRepository.save(hall2);
+              hallRepository.save(hall3);
+              hallRepository.save(hall4);
+              hallRepository.save(hall5);
+              hallRepository.save(hall6);
+//
               // Creating showings for cinema 1, hall 1
-              Showing showing1 = new Showing(movie1.getId(), hall1.getId(), 0, 7200, true, false, 10.0);
-              Showing showing2 = new Showing(movie2.getId(), hall1.getId(), 0, 7200, true, false, 12.0);
+              Showing showing1 = new Showing(movie1, hall1, 0, 7200, true, false, 10.0);
+              Showing showing2 = new Showing(movie2, hall1, 0, 7200, true, false, 12.0);
 
               // Creating showings for cinema 1, hall 2
-              Showing showing3 = new Showing(movie3.getId(), hall2.getId(), 3600, 10800, false, true, 15.0);
-              Showing showing4 = new Showing(movie4.getId(), hall2.getId(), 3600, 10800, false, false, 8.0);
+              Showing showing3 = new Showing(movie3, hall2, 3600, 10800, false, true, 15.0);
+              Showing showing4 = new Showing(movie4, hall2, 3600, 10800, false, false, 8.0);
 
               // Creating showings for cinema 2, hall 1
-              Showing showing5 = new Showing(movie5.getId(), hall3.getId(), 0, 7200, true, false, 12.0);
-              Showing showing6 = new Showing(movie6.getId(), hall3.getId(), 0, 7200, true, true, 15.0);
+              Showing showing5 = new Showing(movie5, hall3, 0, 7200, true, false, 12.0);
+              Showing showing6 = new Showing(movie6, hall3, 0, 7200, true, true, 15.0);
 
               // Creating showings for cinema 2, hall 2
-              Showing showing7 = new Showing(movie7.getId(), hall4.getId(), 0, 7200, false, true, 10.0);
-              Showing showing8 = new Showing(movie8.getId(), hall4.getId(), 3600, 10800, true, true, 18.0);
+              Showing showing7 = new Showing(movie7, hall4, 0, 7200, false, true, 10.0);
+              Showing showing8 = new Showing(movie8, hall4, 3600, 10800, true, true, 18.0);
 
               // Saving showings to the repository
-              showingRepository.save(showing1);
-              showingRepository.save(showing2);
-              showingRepository.save(showing3);
-              showingRepository.save(showing4);
-              showingRepository.save(showing5);
-              showingRepository.save(showing6);
-              showingRepository.save(showing7);
-              showingRepository.save(showing8);
+           showingRepository.saveAll(Arrays.asList(showing1, showing2, showing3, showing4, showing5, showing6, showing7, showing8));
+
+// make reservation with a list of unique seat numbers
+           Reservation reservation1 = new Reservation(showing1,100, List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+           Reservation reservation2 = new Reservation(showing2,100, List.of(11,12,13,14,15));
+           // the list must be unique for each reservation
+           Reservation resveration3 = new Reservation(showing3,100, List.of(16,17));
+           Reservation resveration4 = new Reservation(showing3,100, List.of(18,19));
+
+              // save the reservations
+           reservationRepository.saveAll(Arrays.asList(reservation1, reservation2, resveration3, resveration4));
 
 
        }
+
+
 }
 

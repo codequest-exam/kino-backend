@@ -19,9 +19,6 @@ public class Movie {
 
     private boolean supports3d;
 
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
-//    private Set<Recipe> recipes;
-
     public Movie(String name, int durationInSeconds, boolean supports3d) {
         this.name = name;
         this.supports3d = supports3d;
