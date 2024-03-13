@@ -20,8 +20,7 @@ public class Showing {
     private boolean isImax;
     private float moviePrice;
 
-    public Showing(Long id, Movie movie, Room room, int startTimeInSeconds, int endTimeInSeconds, boolean is3d, boolean isImax, float moviePrice) {
-        this.id = id;
+    public Showing(Movie movie, Room room, int startTimeInSeconds, int endTimeInSeconds, boolean is3d, boolean isImax, float moviePrice) {
         this.movie = movie;
         this.room = room;
         this.startTimeInSeconds = startTimeInSeconds;

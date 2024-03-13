@@ -16,8 +16,7 @@ public class Room {
     private int rows;
     private int seatsPerRow;
 
-    public Room(Long id, Cinema cinema, int roomNumber, boolean supports3d, boolean supportsImax, int rows, int seatsPerRow) {
-        this.id = id;
+    public Room(Cinema cinema, int roomNumber, boolean supports3d, boolean supportsImax, int rows, int seatsPerRow) {
         this.cinema = cinema;
         this.roomNumber = roomNumber;
         this.supports3d = supports3d;
