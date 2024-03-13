@@ -98,11 +98,11 @@ public class InitData implements ApplicationRunner {
            Reservation reservation1 = new Reservation(showing1,100, List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
            Reservation reservation2 = new Reservation(showing2,100, List.of(11,12,13,14,15));
            // the list must be unique for each reservation
-           Reservation resveration3 = new Reservation(showing3,100, List.of(16,17));
-           Reservation resveration4 = new Reservation(showing3,100, List.of(18,19));
+           Reservation reservation3 = new Reservation(showing3,100, List.of(16,17));
+           Reservation reservation4 = new Reservation(showing3,100, List.of(18,19));
 
               // save the reservations
-           reservationRepository.saveAll(Arrays.asList(reservation1, reservation2, resveration3, resveration4));
+           reservationRepository.saveAll(Arrays.asList(reservation1, reservation2, reservation3, reservation4));
 
 
        }
