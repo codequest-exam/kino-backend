@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rooms")
+@RequestMapping("/halls/")
 public class HallController {
 
     HallService hallService;
@@ -20,8 +20,20 @@ public class HallController {
     public List<Hall> getAllRooms(){
         return hallService.getAll();
     }
+
+
+    @GetMapping(path = "{id}")
+    public Hall getRoomById(@PathVariable Long id){
+        return hallService.findById(id);
+    }
+
     @PostMapping
     public Hall createRoom(@RequestBody Hall newRoom) {
         return hallService.addRoom(newRoom);
+    }
+
+    @PutMapping(path = "{id}")
+public Hall updateRoom(@RequestBody Hall roomToUpdate, @PathVariable Long id) {
+        return hallService.updateRoom(roomToUpdate, id);
     }
 }
