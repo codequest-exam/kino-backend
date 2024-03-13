@@ -6,6 +6,7 @@ import dat3.kino.repository.MovieRepository;
 import dat3.kino.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -19,13 +20,13 @@ public class ReservationService {
     }
 
     public Reservation addReservation(Reservation reservationToAdd) {
-//        Long showingId = reservationToAdd.getShowing().getId();
-//        List<Reservation> reservations = reservationRepository.findAllByShowingId(showingId);
-//        for (Reservation reservation : reservations) {
-//            if (reservation.getSeatNumbers().containsAll(reservationToAdd.getSeatNumbers())) {
-//                throw new IllegalArgumentException("Seat is already reserved");
-//            }
-//        }
+        Long showingId = reservationToAdd.getShowing().getId();
+        List<Reservation> reservations = reservationRepository.findAllByShowingId(showingId);
+        for (Reservation reservation : reservations) {
+            if (new HashSet<>(reservation.getSeatNumbers()).containsAll(reservationToAdd.getSeatNumbers())) {
+                throw new IllegalArgumentException("Seat is already reserved");
+            }
+        }
         return reservationRepository.save(reservationToAdd);
     }
 

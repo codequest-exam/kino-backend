@@ -24,4 +24,18 @@ public class HallService {
     public List<Hall> getAll() {
         return hallRepository.findAll();
     }
+
+    public Hall findById(Long id) {
+        return hallRepository.findById(id).orElse(null);
+    }
+
+    public Hall updateRoom(Hall roomToUpdate, Long id) {
+        Hall room = hallRepository.findById(id).orElse(null);
+        if (room == null) {
+            return null;
+        }
+        roomToUpdate.setId( room.getId());
+
+        return hallRepository.save(roomToUpdate);
+    }
 }
