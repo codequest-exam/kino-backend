@@ -32,4 +32,19 @@ public class MovieController {
     public Movie addMovie(@PathVariable String imdbId) throws JsonProcessingException {
         return movieService.addMovie(imdbId);
     }
+
+    @GetMapping(path = "{id}")
+    public Movie getById(@PathVariable Long id){
+        return movieService.findById(id);
+    }
+
+    @PostMapping
+    public Movie addMovie(@RequestBody Movie movieToAdd) {
+        return movieService.addMovie(movieToAdd);
+    }
+
+    @PutMapping(path = "{id}")
+    public Movie updateMovie(@RequestBody Movie movieToUpdate, @PathVariable Long id) {
+        return movieService.updateMovie(movieToUpdate, id);
+    }
 }
