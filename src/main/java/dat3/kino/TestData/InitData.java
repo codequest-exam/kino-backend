@@ -52,17 +52,18 @@ public class InitData implements ApplicationRunner {
            List<String> imdbIds = List.of("tt0110912", "tt0137523", "tt0167260", "tt1375666", "tt0133093", "tt0080684", "tt0088763", "tt0172495"); // Example IMDB IDs
 
            // Fetch movie details using OMDB API and add to the database
-           for (String imdbId : imdbIds) {
-               MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
 
-               // Create a movie entity and add it to the database
+           for (String imdbId : imdbIds) {
+//               //MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
+//
+//               // Create a movie entity and add it to the database
                try {
                    movieService.addMovie(imdbId);
                } catch (Exception e) {
                    System.err.println("Failed to add movie with IMDB ID: " + imdbId);
                    e.printStackTrace();
                }
-           }
+     }
 
               Movie movie1 = new Movie("The Godfather", "1972", "R","24 Mar 1972", "175 min", "Crime, Drama", "Francis Ford Coppola", "Mario Puzo, Francis Ford Coppola", "Marlon Brando, Al Pacino, James Caan", "The Godfather \\\"Don\\\" Vito Corleone is the head of the Corleone mafia family in New York. He is at the event of his daughter's wedding. Michael, Vito's youngest son and a decorated WW II Marine is also present at the wedding. Michael seems to be uninterested in being a part of the family business. Vito is a powerful man, and is kind to all those who give him respect but is ruthless against those who do not. But when a powerful and treacherous rival wants to sell drugs and needs the Don's influence for the same, Vito refuses to do it. What follows is a clash between Vito's fading old values and the new ways which may cause Michael to do the thing he was most reluctant in doing and wage a mob war against all the other mafia families which could tear the Corleone family apart.", null, "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg", "100", "9.2", "1,997,580", "tt006846", "N/A", "True", false);
               Movie movie2 = new Movie("Dune: Part Two", "2024", "Pg-13", "01 Mar 2024", "166 min", "Action, Adventure, Drama", "Denis Villeneuve", "Dennis Villeneuve, Jon Spaiths, Frank Herbert", "Timothée Chalamet, Rebecca Ferguson, Zendaya", "Duke Paul Atreides joins the Fremen and begins a spiritual and martial journey to become Muad'dib, while trying to prevent the horrible but inevitable future he's witnessed: a Holy War in his name, spreading throughout the known universe.", null, "https://m.media-amazon.com/images/M/MV5BODdjMjM3NGQtZDA5OC00NGE4LWIyZDQtZjYwOGZlMTM5ZTQ1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg", "N/A", "9.1", "16,829", "tt1160419", "N/A", "True", false);
@@ -105,7 +106,7 @@ public class InitData implements ApplicationRunner {
 //
               // Creating showings for cinema 1, hall 1
               Showing showing1 = new Showing(movie1, hall1, 0, 7200, true, false, 10.0);
-              Showing showing2 = new Showing(movie2, hall1, 0, 7200, true, false, 12.0);
+              Showing showing2 = new Showing(movie2, hall2, 0, 7200, true, false, 12.0);
 
               // Creating showings for cinema 1, hall 2
 //              Showing showing3 = new Showing(movie3, hall2, 3600, 10800, false, true, 15.0);
