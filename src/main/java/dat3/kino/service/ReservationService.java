@@ -4,6 +4,7 @@ import dat3.kino.entity.Movie;
 import dat3.kino.entity.Reservation;
 import dat3.kino.repository.MovieRepository;
 import dat3.kino.repository.ReservationRepository;
+import dat3.kino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -14,23 +15,34 @@ import java.util.List;
 public class ReservationService {
 
     ReservationRepository reservationRepository;
+    ShowingRepository showingRepository;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, ShowingRepository showingRepository) {
         this.reservationRepository = reservationRepository;
+        this.showingRepository = showingRepository;
     }
 
     public Reservation addReservation(Reservation reservationToAdd) {
         Long showingId = reservationToAdd.getShowing().getId();
+        if (showingRepository.findById(showingId).isEmpty()) {
+            throw new IllegalArgumentException("Showing does not exist");
+        }
+
         List<Reservation> reservations = reservationRepository.findAllByShowingId(showingId);
         for (Reservation reservation : reservations) {
-            if (new HashSet<>(reservation.getSeatNumbers()).containsAll(reservationToAdd.getSeatNumbers())) {
-                throw new IllegalArgumentException("Seat is already reserved");
+
+            // Check if any of the seats are already reserved
+            for (Integer seatNumber : reservationToAdd.getSeatNumbers()) {
+                if (reservation.getSeatNumbers().contains(seatNumber)) {
+                    throw new IllegalArgumentException("Seat is already reserved");
+                }
             }
         }
         return reservationRepository.save(reservationToAdd);
     }
 
     public List<Reservation> findAll() {
+
         return reservationRepository.findAll();
     }
 
