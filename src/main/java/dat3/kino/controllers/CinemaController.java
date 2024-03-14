@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cinema")
+@RequestMapping("/cinemas/")
 public class CinemaController {
 
     CinemaService cinemaService;
@@ -17,22 +17,22 @@ public class CinemaController {
     }
 
     @GetMapping
-    public List<Cinema> getCinema(){
-        return cinemaService.getCinema();
+    public List<Cinema> getCinemas(){
+        return cinemaService.getCinemas();
     }
 
-    @GetMapping
-    public Cinema getCinemaById(Long id){
+    @GetMapping(path = "{id}")
+    public Cinema getCinemaById(@PathVariable Long id){
         return cinemaService.getCinemaById(id);
     }
 
     @PostMapping
-    public Cinema addCinema(Cinema cinemaToAdd) {
+    public Cinema addCinema(@RequestBody Cinema cinemaToAdd) {
         return cinemaService.addCinema(cinemaToAdd);
     }
 
-    @PutMapping
-    public Cinema updateCinema(Cinema cinemaToUpdate, Long id) {
+    @PutMapping(path = "{id}")
+    public Cinema updateCinema(@RequestBody Cinema cinemaToUpdate, @PathVariable Long id) {
         return cinemaService.updateCinema(cinemaToUpdate, id);
     }
 

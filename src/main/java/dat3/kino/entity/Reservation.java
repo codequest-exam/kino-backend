@@ -2,13 +2,18 @@ package dat3.kino.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Reservation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -24,43 +29,12 @@ public class Reservation {
     @NotNull
     private List<Integer> seatNumbers;
 
-    public Reservation(Long id, Showing showing, int price, List<Integer> seatNumbers) {
-        this.id = id;
+    public Reservation(Showing showing, int price, List<Integer> seatNumbers) {
         this.showing = showing;
         this.price = price;
         this.seatNumbers = seatNumbers;
     }
     public Reservation(){}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Showing getShowing() {
-        return showing;
-    }
-
-    public void setShowing(Showing show) {
-        this.showing = show;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public List<Integer> getSeatNumbers() {
-        return seatNumbers;
-    }
-
-    public void setSeatNumbers(List<Integer> seatNumbers) {
-        this.seatNumbers = seatNumbers;
-    }
 }

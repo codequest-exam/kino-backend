@@ -1,18 +1,19 @@
 package dat3.kino.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 public class Cinema {
 
     @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String address;
 
-    public Cinema(Long id, String name, String address) {
-        this.id = id;
+    public Cinema(String name, String address) {
         this.name = name;
         this.address = address;
     }
