@@ -1,6 +1,5 @@
 package dat3.kino.TestData;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import dat3.kino.api_facade.OmdbFacade;
 import dat3.kino.dto.MovieOmdbResponse;
 import dat3.kino.entity.*;
@@ -53,7 +52,7 @@ public class InitData implements ApplicationRunner {
 
            // Fetch movie details using OMDB API and add to the database
            for (String imdbId : imdbIds) {
-               MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
+               // MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
 
                // Create a movie entity and add it to the database
                try {
