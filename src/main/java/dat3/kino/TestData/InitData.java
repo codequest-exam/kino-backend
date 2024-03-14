@@ -47,6 +47,8 @@ public class InitData {
               roomRepository.save(hall5);
               roomRepository.save(hall6);
 
+
+
               // Creating showings for cinema 1, hall 1
 //              Showing showing1 = new Showing(movie1.getId(), hall1.getId(), 0, 7200, true, false, 10.0);
 //              Showing showing2 = new Showing(movie2.getId(), hall1.getId(), 0, 7200, true, false, 12.0);
