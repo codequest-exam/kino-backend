@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reservations/")
+@RequestMapping("/reservations")
 public class ReservationController {
     ReservationService reservationService;
 
@@ -21,12 +21,12 @@ public class ReservationController {
         return reservationService.findAll();
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "/{id}")
     public Reservation getReservationById(@PathVariable Long id){
         return reservationService.findById(id);
     }
 
-    @GetMapping(path = "showing/{id}")
+    @GetMapping(path = "/showing/{id}")
     public List<Reservation> getReservationsByShowingId(@PathVariable Long id){
         return reservationService.findByShowingId(id);
     }
@@ -36,7 +36,7 @@ public class ReservationController {
         return reservationService.addReservation(reservationToAdd);
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/{id}")
     public void deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
     }
