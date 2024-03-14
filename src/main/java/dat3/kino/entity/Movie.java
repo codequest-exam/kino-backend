@@ -68,4 +68,5 @@ public class Movie {
         this.response = response;
         this.supports3d = supports3d;
     }
-    }
+
+}
