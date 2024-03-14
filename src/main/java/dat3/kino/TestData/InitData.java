@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -103,8 +104,8 @@ public class InitData implements ApplicationRunner {
               hallRepository.save(hall6);
 //
               // Creating showings for cinema 1, hall 1
-              Showing showing1 = new Showing(movie1, hall1, 0, 7200, true, false, 10.0);
-              Showing showing2 = new Showing(movie2, hall1, 0, 7200, true, false, 12.0);
+              Showing showing1 = new Showing(movie1, hall1, LocalDateTime.of(2024, 3, 14, 10, 0), true, false, 10.0);
+              Showing showing2 = new Showing(movie2, hall1,LocalDateTime.of(2024, 4, 15, 10, 0), true, false, 12.0);
 
               // Creating showings for cinema 1, hall 2
 //              Showing showing3 = new Showing(movie3, hall2, 3600, 10800, false, true, 15.0);
