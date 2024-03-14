@@ -1,7 +1,8 @@
 package dat3.kino.service;
 
-
+import dat3.kino.entity.Reservation;
 import dat3.kino.entity.Showing;
+import dat3.kino.repository.ReservationRepository;
 import dat3.kino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class ShowingService {
 
     ShowingRepository showingRepository;
+    ReservationRepository reservationRepository;
 
-    public ShowingService(ShowingRepository showingRepository) {
+    public ShowingService(ShowingRepository showingRepository , ReservationRepository reservationRepository) {
         this.showingRepository = showingRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     public Showing addShowing(Showing showingToAdd) {
@@ -40,5 +43,14 @@ public class ShowingService {
 
     public void deleteShowing(Long id) {
         showingRepository.deleteById(id);
+    }
+
+    public List<Integer> getUnavailableSeats(Long id) {
+        List<Reservation> foundReservations = reservationRepository.findAllByShowingId(id);
+        List<Integer> unavailableSeats = foundReservations.stream()
+                .map(Reservation::getSeatNumbers)
+                .flatMap(List::stream)
+                .toList();
+        return unavailableSeats;
     }
 }
