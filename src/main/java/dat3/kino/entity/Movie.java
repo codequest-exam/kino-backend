@@ -2,19 +2,7 @@ package dat3.kino.entity;
 
 
 import jakarta.persistence.*;
-<<<<<<< HEAD
 import lombok.*;
-
-
-
-
-=======
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.*;
->>>>>>> cfd6de9 (CK-36 adjusted InitData to match updated movie entity)
 
 @Entity
 @Getter
