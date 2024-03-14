@@ -17,13 +17,11 @@ public class Showing {
 
     @ManyToOne
     private Hall hall;
-
     private int startTimeInSeconds;
     private int endTimeInSeconds;
     private boolean is3d;
     private boolean isImax;
     private double moviePrice;
-
     public Showing(Movie movie,
                    Hall hall,
                    int startTimeInSeconds, int endTimeInSeconds, boolean is3d, boolean isImax, double moviePrice) {
@@ -38,8 +36,4 @@ public class Showing {
 
     public Showing() {
     }
-
-
-
-
 }

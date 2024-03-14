@@ -39,8 +39,6 @@ public class ShowingController {
     public Showing updateShowing(@RequestBody Showing showingToUpdate, @PathVariable Long id){
         return showingService.updateShowing(showingToUpdate, id);
     }
-
-
     @DeleteMapping(path = "/{id}")
     public void deleteShowing(@PathVariable Long id){
         showingService.deleteShowing(id);
