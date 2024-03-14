@@ -15,6 +15,11 @@ public class ShowingController {
         this.showingService = showingService;
     }
 
+    @GetMapping(path = "{id}/seats")
+    public List<Integer> getUnavailableSeats(@PathVariable Long id){
+        return showingService.getUnavailableSeats(id);
+    }
+
     @GetMapping
     public List<Showing> getAllShowings(){
         return showingService.findAll();
@@ -34,6 +39,7 @@ public class ShowingController {
     public Showing updateShowing(@RequestBody Showing showingToUpdate, @PathVariable Long id){
         return showingService.updateShowing(showingToUpdate, id);
     }
+
 
     @DeleteMapping(path = "{id}")
     public void deleteShowing(@PathVariable Long id){
