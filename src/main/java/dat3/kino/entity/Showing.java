@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -17,20 +19,15 @@ public class Showing {
 
     @ManyToOne
     private Hall hall;
-
-    private int startTimeInSeconds;
-    private int endTimeInSeconds;
+   private LocalDateTime startTime;
     private boolean is3d;
     private boolean isImax;
     private double moviePrice;
-
     public Showing(Movie movie,
-                   Hall hall,
-                   int startTimeInSeconds, int endTimeInSeconds, boolean is3d, boolean isImax, double moviePrice) {
+                   Hall hall, LocalDateTime startTime, boolean is3d, boolean isImax, double moviePrice) {
         this.movie = movie;
         this.hall = hall;
-        this.startTimeInSeconds = startTimeInSeconds;
-        this.endTimeInSeconds = endTimeInSeconds;
+        this.startTime = startTime;
         this.is3d = is3d;
         this.isImax = isImax;
         this.moviePrice = moviePrice;
@@ -38,8 +35,4 @@ public class Showing {
 
     public Showing() {
     }
-
-
-
-
 }

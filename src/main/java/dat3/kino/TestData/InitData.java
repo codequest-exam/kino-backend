@@ -10,9 +10,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -61,7 +60,9 @@ public class InitData implements ApplicationRunner {
         // List of IMDB IDs of movies to initialize
         List<String> imdbIds = List.of("tt0110912", "tt0137523", "tt0167260", "tt1375666", "tt0133093", "tt0080684", "tt0088763", "tt0172495"); // Example IMDB IDs
 
-        // Fetch movie details using OMDB API and add to the database
+           // Fetch movie details using OMDB API and add to the database
+           for (String imdbId : imdbIds) {
+               // MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
 
 //           for (String imdbId : imdbIds) {
 ////               //MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
@@ -115,8 +116,10 @@ public class InitData implements ApplicationRunner {
         hallRepository.save(hall6);
 //
         // Creating showings for cinema 1, hall 1
-        Showing showing1 = new Showing(movie1, hall1, 0, 7200, true, false, 10.0);
-        Showing showing2 = new Showing(movie2, hall2, 0, 7200, true, false, 12.0);
+
+              // Creating showings for cinema 1, hall 1
+              Showing showing1 = new Showing(movie1, hall1, LocalDateTime.of(2024, 3, 14, 10, 0), true, false, 10.0);
+              Showing showing2 = new Showing(movie2, hall1,LocalDateTime.of(2024, 4, 15, 10, 0), true, false, 12.0);
 
         // Creating showings for cinema 1, hall 2
               Showing showing3 = new Showing(movie2, hall2, 3600, 10800, false, true, 15.0);
@@ -173,7 +176,7 @@ public class InitData implements ApplicationRunner {
            ));
 
 
-    }
+       }
 
 
 }

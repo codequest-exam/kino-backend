@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/halls/")
+@RequestMapping("/halls")
 public class HallController {
 
     HallService hallService;
@@ -22,7 +22,7 @@ public class HallController {
     }
 
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "/{id}")
     public Hall getRoomById(@PathVariable Long id){
         return hallService.findById(id);
     }
@@ -32,7 +32,7 @@ public class HallController {
         return hallService.addRoom(newRoom);
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "/{id}")
 public Hall updateRoom(@RequestBody Hall roomToUpdate, @PathVariable Long id) {
         return hallService.updateRoom(roomToUpdate, id);
     }

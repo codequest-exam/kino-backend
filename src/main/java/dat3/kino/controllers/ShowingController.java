@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/showings/")
+@RequestMapping("/showings")
 public class ShowingController {
     ShowingService showingService;
 
@@ -25,7 +25,7 @@ public class ShowingController {
         return showingService.findAll();
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "/{id}")
     public Showing getShowingById(@PathVariable Long id){
         return showingService.findById(id);
     }
@@ -35,13 +35,11 @@ public class ShowingController {
         return showingService.addShowing(showingToAdd);
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping(path = "/{id}")
     public Showing updateShowing(@RequestBody Showing showingToUpdate, @PathVariable Long id){
         return showingService.updateShowing(showingToUpdate, id);
     }
-
-
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/{id}")
     public void deleteShowing(@PathVariable Long id){
         showingService.deleteShowing(id);
     }
