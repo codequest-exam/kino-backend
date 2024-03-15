@@ -49,7 +49,7 @@ public class ShowingService {
     public List<Integer> getUnavailableSeats(Long id) {
         List<Reservation> foundReservations = reservationRepository.findAllByShowingId(id);
         List<Integer> unavailableSeats = foundReservations.stream()
-                .map(Reservation::getSeatNumbers)
+                .map(Reservation::getReservedSeats)
                 .flatMap(List::stream)
                 .map(Seat::getSeatNumber)
                 .toList();

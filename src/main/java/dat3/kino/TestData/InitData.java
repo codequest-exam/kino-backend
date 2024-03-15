@@ -147,7 +147,8 @@ public class InitData implements ApplicationRunner {
                PriceClass priceClass2 = new PriceClass("cowboy", 80);
                PriceClass priceClass3 = new PriceClass("sofa", 125);
                priceClassRepository.saveAll(Arrays.asList(priceClass1, priceClass2, priceClass3));
-               // loop through all the halls
+
+        //loop through all the halls
                for (Hall hall : hallRepository.findAll()) {
                    // loop through all the seats in the hall
                    List<Seat> seats = new ArrayList<>();
@@ -155,25 +156,31 @@ public class InitData implements ApplicationRunner {
                        // add seats to the hall through a loop, save them all at the end
                        // row rounded down to the nearest integer
                        int row = (int) Math.floor(i / hall.getSeatsPerRow()) + 1;
-                       seats.add(new Seat(hall, i + 1, row, row < 3 ? priceClass2 : row > hall.getSeatRows() - 2 ? priceClass3 : priceClass1));
+                       PriceClass price = row < 3 ? priceClass2 : row > hall.getSeatRows() - 2 ? priceClass3 : priceClass1;
+                       seats.add(new Seat(hall, i + 1, row, price));
 
                    }
                    seatRepository.saveAll(seats);
                }
-
-
+//
+//
                //make reservation with a list of unique seat numbers
-               Reservation reservation1 = new Reservation(showing1, 100,
-                       List.of(seatRepository.findById(1L).get(), seatRepository.findById(2L).get(), seatRepository.findById(3L).get()));
+        Seat seat1 = seatRepository.findById(1L).orElseThrow(() -> new RuntimeException("Seat not found"));
+        Seat seat2 = seatRepository.findById(2L).orElseThrow(() -> new RuntimeException("Seat not found"));
+        Seat seat3 = seatRepository.findById(3L).orElseThrow(() -> new RuntimeException("Seat not found"));
+        Seat seat4 = seatRepository.findById(4L).orElseThrow(() -> new RuntimeException("Seat not found"));
+        System.out.println(seat1 +" " + seat2 + " " + seat3 + " " + seat4);
 
-               Reservation reservation2 = new Reservation(showing2, 100, List.of(seatRepository.findById(4L).get(), seatRepository.findById(5L).get(), seatRepository.findById(6L).get()));
-
-               Reservation reservation3 = new Reservation(showing3, 100, List.of(seatRepository.findById(7L).get(), seatRepository.findById(8L).get(), seatRepository.findById(9L).get()));
-               Reservation reservation4 = new Reservation(showing4, 100, List.of(seatRepository.findById(10L).get(), seatRepository.findById(11L).get()));
-
-               //     save the reservations
-               reservationRepository.saveAll(Arrays.asList(reservation1, reservation2,
-                       reservation3, reservation4
-               ));
-           }}
+//        Reservation reservation1 = new Reservation(showing1, 100,List.of(seat1));
+//               Reservation reservation2 = new Reservation(showing2, 100, List.of(seat2));
+//
+//               Reservation reservation3 = new Reservation(showing3, 100, List.of(seat3));
+//               Reservation reservation4 = new Reservation(showing4, 100, List.of(seat4));
+//
+//               //     save the reservations
+//               reservationRepository.saveAll(Arrays.asList(reservation1, reservation2,
+//                       reservation3, reservation4
+//               ));
+           }
+}
 

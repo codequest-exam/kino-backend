@@ -32,13 +32,12 @@ public class Reservation {
 
     @NotNull
     @OneToMany
+    private List<Seat> reservedSeats;
 
-    private List<Seat> seatNumbers;
-
-    public Reservation(Showing showing, int price, List<Seat> seatNumbers) {
+    public Reservation(Showing showing, int price, List<Seat> reservedSeats) {
         this.showing = showing;
         this.price = price;
-        this.seatNumbers = seatNumbers;
+        this.reservedSeats = reservedSeats;
     }
     public Reservation(){}
 

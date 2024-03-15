@@ -1,13 +1,11 @@
 package dat3.kino.service;
 
-import dat3.kino.entity.Movie;
 import dat3.kino.entity.Reservation;
-import dat3.kino.repository.MovieRepository;
+import dat3.kino.entity.Seat;
 import dat3.kino.repository.ReservationRepository;
 import dat3.kino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -28,12 +26,12 @@ public class ReservationService {
             throw new IllegalArgumentException("Showing does not exist");
         }
 
+        //            // Check if any of the seats are already reserved
         List<Reservation> reservations = reservationRepository.findAllByShowingId(showingId);
+
 //        for (Reservation reservation : reservations) {
-//
-//            // Check if any of the seats are already reserved
-//            for (Integer seatNumber : reservationToAdd.getSeatNumbers()) {
-//                if (reservation.getSeatNumbers().contains(seatNumber)) {
+//            for (Seat seat : reservationToAdd.getReservedSeats()) {
+//                if (reservation.getReservedSeats().contains(seat)) {
 //                    throw new IllegalArgumentException("Seat is already reserved");
 //                }
 //            }
