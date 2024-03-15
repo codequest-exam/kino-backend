@@ -23,13 +23,6 @@ public class Reservation {
     @NotNull
     private int price;
 
-//    @ElementCollection
-//    @CollectionTable(name = "seat_numbers", joinColumns = @JoinColumn(name = "reservation_id"))
-//    @Column(name = "seat_number")
-
-    // include the showing id in the seatNumbers table
-
-
     @NotNull
     @OneToMany
     private List<Seat> reservedSeats;
