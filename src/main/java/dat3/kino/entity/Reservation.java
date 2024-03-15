@@ -23,13 +23,19 @@ public class Reservation {
     @NotNull
     private int price;
 
-    @ElementCollection
-    @CollectionTable(name = "seat_numbers", joinColumns = @JoinColumn(name = "reservation_id"))
-    @Column(name = "seat_number")
-    @NotNull
-    private List<Integer> seatNumbers;
+//    @ElementCollection
+//    @CollectionTable(name = "seat_numbers", joinColumns = @JoinColumn(name = "reservation_id"))
+//    @Column(name = "seat_number")
 
-    public Reservation(Showing showing, int price, List<Integer> seatNumbers) {
+    // include the showing id in the seatNumbers table
+
+
+    @NotNull
+    @OneToMany
+
+    private List<Seat> seatNumbers;
+
+    public Reservation(Showing showing, int price, List<Seat> seatNumbers) {
         this.showing = showing;
         this.price = price;
         this.seatNumbers = seatNumbers;

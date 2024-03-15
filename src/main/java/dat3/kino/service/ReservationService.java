@@ -29,15 +29,15 @@ public class ReservationService {
         }
 
         List<Reservation> reservations = reservationRepository.findAllByShowingId(showingId);
-        for (Reservation reservation : reservations) {
-
-            // Check if any of the seats are already reserved
-            for (Integer seatNumber : reservationToAdd.getSeatNumbers()) {
-                if (reservation.getSeatNumbers().contains(seatNumber)) {
-                    throw new IllegalArgumentException("Seat is already reserved");
-                }
-            }
-        }
+//        for (Reservation reservation : reservations) {
+//
+//            // Check if any of the seats are already reserved
+//            for (Integer seatNumber : reservationToAdd.getSeatNumbers()) {
+//                if (reservation.getSeatNumbers().contains(seatNumber)) {
+//                    throw new IllegalArgumentException("Seat is already reserved");
+//                }
+//            }
+//        }
         return reservationRepository.save(reservationToAdd);
     }
 

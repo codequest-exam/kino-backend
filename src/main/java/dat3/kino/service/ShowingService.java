@@ -1,6 +1,7 @@
 package dat3.kino.service;
 
 import dat3.kino.entity.Reservation;
+import dat3.kino.entity.Seat;
 import dat3.kino.entity.Showing;
 import dat3.kino.repository.ReservationRepository;
 import dat3.kino.repository.ShowingRepository;
@@ -50,6 +51,7 @@ public class ShowingService {
         List<Integer> unavailableSeats = foundReservations.stream()
                 .map(Reservation::getSeatNumbers)
                 .flatMap(List::stream)
+                .map(Seat::getSeatNumber)
                 .toList();
         return unavailableSeats;
     }

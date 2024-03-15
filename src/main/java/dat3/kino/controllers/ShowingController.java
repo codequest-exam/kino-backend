@@ -15,7 +15,7 @@ public class ShowingController {
         this.showingService = showingService;
     }
 
-    @GetMapping(path = "{id}/seats")
+    @GetMapping(path = "{id}/takenSeats")
     public List<Integer> getUnavailableSeats(@PathVariable Long id){
         return showingService.getUnavailableSeats(id);
     }
