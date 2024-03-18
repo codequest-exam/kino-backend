@@ -33,7 +33,7 @@ public class SetupDevUsers implements ApplicationRunner {
     }
 
     private void setupAllowedRoles(){
-        roleRepository.save(new Role("USER"));
+        roleRepository.save(new Role("EMPLOYEE"));
         roleRepository.save(new Role("ADMIN"));
         roleRepository.save(new Role("CUSTOMER"));
     }
@@ -45,7 +45,7 @@ public class SetupDevUsers implements ApplicationRunner {
      If you see the lines below in log-outputs on Azure, forget whatever had your attention on, AND FIX THIS PROBLEM
      *****************************************************************************************/
     private void setupUserWithRoleUsers() {
-        Role roleUser = roleRepository.findById("USER").orElseThrow(()-> new NoSuchElementException("Role 'user' not found"));
+        Role roleEmployee = roleRepository.findById("EMPLOYEE").orElseThrow(()-> new NoSuchElementException("Role 'employee' not found"));
         Role roleAdmin = roleRepository.findById("ADMIN").orElseThrow(()-> new NoSuchElementException("Role 'admin' not found"));
         Role roleCustomer = roleRepository.findById("CUSTOMER").orElseThrow(()-> new NoSuchElementException("Role 'customer' not found"));
 
@@ -62,7 +62,7 @@ public class SetupDevUsers implements ApplicationRunner {
         UserWithRoles user3 = new UserWithRoles("user3", pwEncoder.encode(passwordUsedByAll), "user3@a.dk");
         UserWithRoles user4 = new UserWithRoles("user4", pwEncoder.encode(passwordUsedByAll), "user4@a.dk");
         user1.addRole(roleAdmin);
-        user2.addRole(roleUser);
+        user2.addRole(roleEmployee);
         user3.addRole(roleCustomer);
         userWithRolesRepository.save(user1);
         userWithRolesRepository.save(user2);
