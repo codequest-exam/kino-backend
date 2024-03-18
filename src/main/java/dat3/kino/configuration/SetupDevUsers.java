@@ -35,6 +35,7 @@ public class SetupDevUsers implements ApplicationRunner {
     private void setupAllowedRoles(){
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("ADMIN"));
+        roleRepository.save(new Role("CUSTOMER"));
     }
 
      /*****************************************************************************************
@@ -46,6 +47,8 @@ public class SetupDevUsers implements ApplicationRunner {
     private void setupUserWithRoleUsers() {
         Role roleUser = roleRepository.findById("USER").orElseThrow(()-> new NoSuchElementException("Role 'user' not found"));
         Role roleAdmin = roleRepository.findById("ADMIN").orElseThrow(()-> new NoSuchElementException("Role 'admin' not found"));
+        Role roleCustomer = roleRepository.findById("CUSTOMER").orElseThrow(()-> new NoSuchElementException("Role 'customer' not found"));
+
         System.out.println("******************************************************************************");
         System.out.println("********** IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ************");
         System.out.println();
@@ -58,10 +61,9 @@ public class SetupDevUsers implements ApplicationRunner {
         UserWithRoles user2 = new UserWithRoles("user2", pwEncoder.encode(passwordUsedByAll), "user2@a.dk");
         UserWithRoles user3 = new UserWithRoles("user3", pwEncoder.encode(passwordUsedByAll), "user3@a.dk");
         UserWithRoles user4 = new UserWithRoles("user4", pwEncoder.encode(passwordUsedByAll), "user4@a.dk");
-        user1.addRole(roleUser);
         user1.addRole(roleAdmin);
         user2.addRole(roleUser);
-        user3.addRole(roleAdmin);
+        user3.addRole(roleCustomer);
         userWithRolesRepository.save(user1);
         userWithRolesRepository.save(user2);
         userWithRolesRepository.save(user3);
