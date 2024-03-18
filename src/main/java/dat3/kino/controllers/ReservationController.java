@@ -1,6 +1,7 @@
 package dat3.kino.controllers;
 
 
+import dat3.kino.dto.ReservationResponseDto;
 import dat3.kino.entity.Reservation;
 import dat3.kino.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/{id}")
-    public Reservation getReservationById(@PathVariable Long id){
+    public ReservationResponseDto getReservationById(@PathVariable Long id){
         return reservationService.findById(id);
     }
 

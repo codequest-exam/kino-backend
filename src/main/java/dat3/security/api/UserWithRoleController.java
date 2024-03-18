@@ -2,10 +2,13 @@ package dat3.security.api;
 
 import dat3.security.dto.UserWithRolesRequest;
 import dat3.security.dto.UserWithRolesResponse;
+import dat3.security.entity.UserWithRoles;
 import dat3.security.service.UserWithRolesService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -24,6 +27,11 @@ public class UserWithRoleController {
              description = "If a default role is defined (app.default-role ), this role will be assigned to the user.")
   public UserWithRolesResponse addUserWithRoles(@RequestBody UserWithRolesRequest request) {
     return userWithRolesService.addUserWithRoles(request);
+  }
+
+  @GetMapping
+  public List<UserWithRoles> getAllUsersWithRoles() {
+    return userWithRolesService.getAllUsersWithRoles();
   }
 
   //Take care with this. This should NOT be something everyone can call

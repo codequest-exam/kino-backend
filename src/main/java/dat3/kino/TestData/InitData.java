@@ -6,6 +6,8 @@ import dat3.kino.dto.MovieOmdbResponse;
 import dat3.kino.entity.*;
 import dat3.kino.repository.*;
 import dat3.kino.service.MovieService;
+import dat3.security.entity.UserWithRoles;
+import dat3.security.repository.UserWithRolesRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -37,8 +39,10 @@ public class InitData implements ApplicationRunner {
     private final SeatRepository seatRepository;
 
     private final PriceClassRepository priceClassRepository;
+    private final UserWithRolesRepository userWithRolesRepository;
 
-    public InitData(PriceClassRepository priceClassRepository,
+    public InitData( UserWithRolesRepository userWithRolesRepository,
+            PriceClassRepository priceClassRepository,
             SeatRepository seatRepository, ReservationRepository reservationRepository, MovieRepository movieRepository, HallRepository hallRepository, ShowingRepository showingRepository, CinemaRepository cinemaRepository, OmdbFacade omdbFacade, MovieService movieService) {
         this.movieRepository = movieRepository;
         this.hallRepository = hallRepository;
@@ -49,6 +53,7 @@ public class InitData implements ApplicationRunner {
         this.movieService = movieService;
         this.seatRepository = seatRepository;
         this.priceClassRepository = priceClassRepository;
+        this.userWithRolesRepository = userWithRolesRepository;
     }
 
     @Override
@@ -171,11 +176,13 @@ public class InitData implements ApplicationRunner {
         Seat seat4 = seatRepository.findById(4L).orElseThrow(() -> new RuntimeException("Seat not found"));
         System.out.println(seat1 +" " + seat2 + " " + seat3 + " " + seat4);
 
-//        Reservation reservation1 = new Reservation(showing1, 100,List.of(seat1));
-//               Reservation reservation2 = new Reservation(showing2, 100, List.of(seat2));
+//        UserWithRoles user = userWithRolesRepository.findById("user1").orElseThrow(() -> new RuntimeException("User not found"));
 //
-//               Reservation reservation3 = new Reservation(showing3, 100, List.of(seat3));
-//               Reservation reservation4 = new Reservation(showing4, 100, List.of(seat4));
+//        Reservation reservation1 = new Reservation(showing1, 100,List.of(seat1), user);
+//               Reservation reservation2 = new Reservation(showing2, 100, List.of(seat2), user);
+//
+//               Reservation reservation3 = new Reservation(showing3, 100, List.of(seat3), user);
+//               Reservation reservation4 = new Reservation(showing4, 100, List.of(seat4), user);
 //
 //               //     save the reservations
 //               reservationRepository.saveAll(Arrays.asList(reservation1, reservation2,
