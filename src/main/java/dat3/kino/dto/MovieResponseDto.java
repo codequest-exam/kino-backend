@@ -8,11 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MovieResponseDto {
+    private int id;
     private String title;
     private String imdbRating;
     private String poster;
     private String genre;
     public MovieResponseDto(Movie movie) {
+        this.id = movie.getId();
         this.title = movie.getTitle();
         this.imdbRating = movie.getImdbRating();
         this.poster = movie.getPoster();
