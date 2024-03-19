@@ -20,6 +20,7 @@ public class UserWithRoleController {
     this.userWithRolesService = userWithRolesService;
   }
 //Get all users
+  @PreAuthorize("hasAuthority('ADMIN')")
 @GetMapping("/users")
 @Operation(summary = "Get all users with roles", description = "Returns a list of all users with their roles")
 public List<UserWithRolesResponse> getAllUsersWithRoles() {
