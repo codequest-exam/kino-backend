@@ -6,6 +6,7 @@ import dat3.kino.entity.Reservation;
 import dat3.kino.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,8 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/{id}")
-    public ReservationResponseDto getReservationById(@PathVariable Long id){
-        return reservationService.findById(id);
+    public ReservationResponseDto getReservationById(@PathVariable Long id, Principal principal){
+        return reservationService.findById(id, principal);
     }
 
     @GetMapping(path = "/showing/{id}")

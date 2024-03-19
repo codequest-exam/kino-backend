@@ -7,6 +7,7 @@ import dat3.kino.repository.ReservationRepository;
 import dat3.kino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -23,9 +24,12 @@ public class ReservationService {
 
     public List<ReservationResponseDto> findAll() { return reservationRepository.findAll().stream().map(ReservationResponseDto::new).toList();}
 
-    public ReservationResponseDto findById(Long id) {
-        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Reservation does not exist"));
+    public ReservationResponseDto findById(Long id, Principal principal) {
 
+        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Reservation does not exist"));
+        if (principal != null && reservation.getUser() != null && !principal.getName().equals(reservation.getUser().getUsername())) {
+            throw new IllegalArgumentException("You are not authorized to view this reservation");
+        }
         return new ReservationResponseDto(reservation);
     }
 

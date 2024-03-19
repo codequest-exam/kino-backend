@@ -63,11 +63,13 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/")).permitAll()
 
             // Cinema allowance
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/cinemas/*")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/cinemas/*")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/cinemas/*")).hasAuthority("ADMIN")
 
             //Allowance for hall
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/halls")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/halls/*")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/halls/*")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/halls/*")).hasAuthority("ADMIN")
@@ -75,6 +77,7 @@ public class SecurityConfig {
 
 
             //Allowance for movie
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/movies/*")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/movies/*")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/movies/*")).hasAuthority("ADMIN")
@@ -82,13 +85,15 @@ public class SecurityConfig {
 
             // Allowance for showing
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/showings")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/showings/*")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/showings")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/showings/*")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/showings/*")).hasAuthority("ADMIN")
 
             //Allowance for reservation
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/*")).hasAnyAuthority("USER", "ADMIN")
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations/*")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/reservations/*")).hasAuthority( "ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/reservations/*")).hasAuthority( "ADMIN")
 
@@ -110,8 +115,8 @@ public class SecurityConfig {
             //.requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/admin-only")).hasAuthority("ADMIN")
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
-            .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
-            //.anyRequest().authenticated());
+            //.requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
+            .anyRequest().authenticated());
 
     return http.build();
   }
