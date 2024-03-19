@@ -21,7 +21,7 @@ public class ReservationService {
         this.showingRepository = showingRepository;
     }
 
-    public List<Reservation> findAll() { return reservationRepository.findAll();}
+    public List<ReservationResponseDto> findAll() { return reservationRepository.findAll().stream().map(ReservationResponseDto::new).toList();}
 
     public ReservationResponseDto findById(Long id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Reservation does not exist"));
@@ -29,7 +29,7 @@ public class ReservationService {
         return new ReservationResponseDto(reservation);
     }
 
-    public Reservation addReservation(Reservation reservationToAdd) {
+    public ReservationResponseDto addReservation(Reservation reservationToAdd) {
         Long showingId = reservationToAdd.getShowing().getId();
         if (showingRepository.findById(showingId).isEmpty()) {
             throw new IllegalArgumentException("Showing does not exist");
@@ -45,16 +45,18 @@ public class ReservationService {
 //                }
 //            }
 //        }
-        return reservationRepository.save(reservationToAdd);
+        return new ReservationResponseDto(reservationRepository.save(reservationToAdd));
     }
 
+
+
+
+
+    public List<ReservationResponseDto> findByShowingId(Long id) {
+        return reservationRepository.findAllByShowingId(id).stream().map(ReservationResponseDto::new).toList();
+    }
 
     public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);
-    }
-
-
-    public List<Reservation> findByShowingId(Long id) {
-        return reservationRepository.findAllByShowingId(id);
     }
 }

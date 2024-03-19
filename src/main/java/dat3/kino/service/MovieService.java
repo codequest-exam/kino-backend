@@ -3,6 +3,7 @@ package dat3.kino.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import dat3.kino.api_facade.OmdbFacade;
 import dat3.kino.dto.MovieOmdbResponse;
+import dat3.kino.dto.MovieResponseDto;
 import dat3.kino.entity.Cinema;
 import dat3.kino.entity.Movie;
 import dat3.kino.repository.CinemaRepository;
@@ -33,8 +34,8 @@ public class MovieService {
         return movieRepository.save(movieToadd);
     }
 
-    public List<Movie> findAll() {
-        return movieRepository.findAll();
+    public List<MovieResponseDto> findAll() {
+        return movieRepository.findAll().stream().map(MovieResponseDto::new).toList();
     }
 
     public Movie getMovieByImdbId(String imdbId) {

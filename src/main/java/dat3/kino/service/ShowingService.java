@@ -1,5 +1,6 @@
 package dat3.kino.service;
 
+import dat3.kino.dto.ShowingResponseDto;
 import dat3.kino.entity.Reservation;
 import dat3.kino.entity.Seat;
 import dat3.kino.entity.Showing;
@@ -24,8 +25,8 @@ public class ShowingService {
         return showingRepository.save(showingToAdd);
     }
 
-    public List<Showing> findAll() {
-        return showingRepository.findAll();
+    public List<ShowingResponseDto> findAll() {
+        return showingRepository.findAll().stream().map(ShowingResponseDto::new).toList();
     }
 
     public Showing findById(Long id) {

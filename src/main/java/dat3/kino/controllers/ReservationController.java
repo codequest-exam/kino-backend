@@ -18,7 +18,7 @@ public class ReservationController {
     }
 
     @GetMapping
-    public List<Reservation> getAllReservations(){
+    public List<ReservationResponseDto> getAllReservations(){
         return reservationService.findAll();
     }
 
@@ -28,12 +28,12 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/showing/{id}")
-    public List<Reservation> getReservationsByShowingId(@PathVariable Long id){
+    public List<ReservationResponseDto> getReservationsByShowingId(@PathVariable Long id){
         return reservationService.findByShowingId(id);
     }
 
     @PostMapping
-    public Reservation addReservation(@RequestBody Reservation reservationToAdd) {
+    public ReservationResponseDto addReservation(@RequestBody Reservation reservationToAdd) {
         return reservationService.addReservation(reservationToAdd);
     }
 

@@ -1,5 +1,6 @@
 package dat3.kino.controllers;
 
+import dat3.kino.dto.ShowingResponseDto;
 import dat3.kino.entity.Showing;
 import dat3.kino.service.ShowingService;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ShowingController {
     }
 
     @GetMapping
-    public List<Showing> getAllShowings(){
+    public List<ShowingResponseDto> getAllShowings(){
         return showingService.findAll();
     }
 

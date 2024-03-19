@@ -1,6 +1,7 @@
 package dat3.kino.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import dat3.kino.dto.MovieResponseDto;
 import dat3.kino.entity.Movie;
 import dat3.kino.service.CinemaService;
 import dat3.kino.service.MovieService;
@@ -19,7 +20,7 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<Movie> getAll(){
+    public List<MovieResponseDto> getAll(){
         return movieService.findAll();
     }
 

@@ -16,7 +16,7 @@ public class ReservationResponseDto {
     private List<SeatResponseDto> reservedSeats;
 
     public ReservationResponseDto(Reservation reservation) {
-        this.user = new UserWithRolesResponse(reservation.getUser());
+        if (reservation.getUser() != null) {this.user = new UserWithRolesResponse(reservation.getUser());}
         this.showing = new ShowingResponseDto(reservation.getShowing());
         this.price = reservation.getPrice();
         // reserved seats are a list of seat response dto

@@ -1,6 +1,7 @@
 package dat3.kino.service;
 
 
+import dat3.kino.dto.HallResponseDto;
 import dat3.kino.entity.Hall;
 import dat3.kino.repository.HallRepository;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class HallService {
         return hallRepository.save(roomToAdd);
     }
 
-    public List<Hall> getAll() {
-        return hallRepository.findAll();
+    public List<HallResponseDto> getAll() {
+        return hallRepository.findAll().stream().map(HallResponseDto::new).toList();
     }
 
     public Hall findById(Long id) {
