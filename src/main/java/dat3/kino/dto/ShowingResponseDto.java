@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ShowingResponseDto {
+    private Long id;
     private MovieResponseDto movie;
     private HallResponseDto hall;
     private LocalDateTime startTime;
@@ -17,6 +18,7 @@ public class ShowingResponseDto {
     private boolean isImax;
 
     public ShowingResponseDto(Showing showing) {
+        this.id = showing.getId();
         this.movie = new MovieResponseDto(showing.getMovie());
         this.hall = new HallResponseDto(showing.getHall());
         this.startTime = showing.getStartTime();
