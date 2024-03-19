@@ -1,5 +1,6 @@
 package dat3.kino.entity;
 
+import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -21,18 +22,27 @@ public class Reservation {
     private Showing showing;
 
     @NotNull
-    private int price;
+    private double price;
+
+    @ManyToOne
+    UserWithRoles user;
 
     @NotNull
     @OneToMany
     private List<Seat> reservedSeats;
 
-    public Reservation(Showing showing, int price, List<Seat> reservedSeats) {
+    public Reservation(Showing showing, double price, List<Seat> reservedSeats, UserWithRoles user) {
         this.showing = showing;
         this.price = price;
         this.reservedSeats = reservedSeats;
+        this.user = user;
     }
     public Reservation(){}
 
 
+    public Reservation(Showing showing, double price, List<Seat> seat) {
+        this.showing = showing;
+        this.price = price;
+        this.reservedSeats = seat;
+    }
 }

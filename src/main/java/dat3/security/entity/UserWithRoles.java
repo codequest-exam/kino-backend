@@ -79,7 +79,7 @@ public class UserWithRoles implements UserDetails {
   public void addRole(Role roleToAdd) {
     if (!roles.contains(roleToAdd)) {
       roles.add(roleToAdd);
-      roleToAdd.addUser(this);
+      //roleToAdd.addUser(this);
     }
   }
 

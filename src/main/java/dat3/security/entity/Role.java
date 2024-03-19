@@ -24,11 +24,15 @@ public class Role {
       this.roleName = roleName;
    }
 
-   @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
-   Set<UserWithRoles> users;
 
-   public void addUser(UserWithRoles user) {
-      if(users == null) users = new HashSet<>();
-      users.add(user);
-   }
+   // Lars: This is not needed, as we are using the mappedBy attribute in UserWithRoles
+   // IN FACT, this will cause a StackOverflowError, as the two entities will keep calling each other
+   // THANKS LARS!!!!
+//   @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
+//   Set<UserWithRoles> users;
+//
+//   public void addUser(UserWithRoles user) {
+//      if(users == null) users = new HashSet<>();
+//      users.add(user);
+//   }
 }
