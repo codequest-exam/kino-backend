@@ -22,7 +22,7 @@ public class Reservation {
     private Showing showing;
 
     @NotNull
-    private int price;
+    private double price;
 
     @ManyToOne
     UserWithRoles user;
@@ -31,7 +31,7 @@ public class Reservation {
     @OneToMany
     private List<Seat> reservedSeats;
 
-    public Reservation(Showing showing, int price, List<Seat> reservedSeats, UserWithRoles user) {
+    public Reservation(Showing showing, double price, List<Seat> reservedSeats, UserWithRoles user) {
         this.showing = showing;
         this.price = price;
         this.reservedSeats = reservedSeats;
@@ -40,4 +40,9 @@ public class Reservation {
     public Reservation(){}
 
 
+    public Reservation(Showing showing, double price, List<Seat> seat) {
+        this.showing = showing;
+        this.price = price;
+        this.reservedSeats = seat;
+    }
 }

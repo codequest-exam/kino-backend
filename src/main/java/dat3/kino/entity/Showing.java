@@ -19,18 +19,17 @@ public class Showing {
 
     @ManyToOne
     private Hall hall;
-   private LocalDateTime startTime;
+    private LocalDateTime startTime;
     private boolean is3d;
     private boolean isImax;
-    private double moviePrice;
+
     public Showing(Movie movie,
-                   Hall hall, LocalDateTime startTime, boolean is3d, boolean isImax, double moviePrice) {
+                   Hall hall, LocalDateTime startTime, boolean is3d, boolean isImax) {
         this.movie = movie;
         this.hall = hall;
         this.startTime = startTime;
         this.is3d = is3d;
         this.isImax = isImax;
-        this.moviePrice = moviePrice;
     }
 
     public Showing() {

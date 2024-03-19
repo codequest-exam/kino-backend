@@ -12,9 +12,18 @@ import java.util.List;
 public class ReservationResponseDto {
     private UserWithRolesResponse user;
     private ShowingResponseDto showing;
-private int price;
-private List<SeatResponseDto> reservedSeats;
+    private double price;
+    private List<SeatResponseDto> reservedSeats;
 
     public ReservationResponseDto(Reservation reservation) {
+        this.user = new UserWithRolesResponse(reservation.getUser());
+        this.showing = new ShowingResponseDto(reservation.getShowing());
+        this.price = reservation.getPrice();
+        // reserved seats are a list of seat response dto
+        //this.reservedSeats = List.of(reservation.getReservedSeats().forEach(seat -> new SeatResponseDto(seat)));
+        this.reservedSeats = reservation.getReservedSeats().stream().map(SeatResponseDto::new).toList();
+        //this.showing = new ShowingResponseDto(reservation.getShowing());
+        //this
+
     }
 }
