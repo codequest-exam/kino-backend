@@ -11,14 +11,12 @@ import java.time.LocalDateTime;
 @Setter
 public class ShowingResponseDto {
     private MovieResponseDto movie;
-    private double moviePrice;
     private HallResponseDto hall;
     private LocalDateTime startTime;
 
 
     public ShowingResponseDto(Showing showing) {
         this.movie = new MovieResponseDto(showing.getMovie());
-        this.moviePrice = showing.getMoviePrice();
         this.hall = new HallResponseDto(showing.getHall());
         this.startTime = showing.getStartTime();
     }
