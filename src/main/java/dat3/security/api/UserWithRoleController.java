@@ -20,7 +20,6 @@ public class UserWithRoleController {
     this.userWithRolesService = userWithRolesService;
   }
 //Get all users
-
 @GetMapping("/users")
 @Operation(summary = "Get all users with roles", description = "Returns a list of all users with their roles")
 public List<UserWithRolesResponse> getAllUsersWithRoles() {
@@ -33,12 +32,6 @@ public List<UserWithRolesResponse> getAllUsersWithRoles() {
   public UserWithRolesResponse addUserWithRoles(@RequestBody UserWithRolesRequest request) {
     return userWithRolesService.addUserWithRoles(request);
   }
-
-  @GetMapping("/users")
-  public List<UserWithRolesResponse> getAllUsersWithRoles() {
-    return userWithRolesService.getUsersWithRoles();
-  }
-}
 
   //Take care with this. This should NOT be something everyone can call
   //@PreAuthorize("hasAuthority('ADMIN')")
