@@ -92,7 +92,9 @@ public class SecurityConfig {
 
             //Allowance for reservation
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations")).hasAuthority("ADMIN")
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/*")).hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/*")).hasAnyAuthority("CUSTOMER","EMPLOYEE","ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/showing/*")).hasAnyAuthority("EMPLOYEE","ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/reservations/user/*")).hasAnyAuthority("CUSTOMER","EMPLOYEE", "ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/reservations")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/reservations/*")).hasAuthority( "ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/reservations/*")).hasAuthority( "ADMIN")
@@ -115,8 +117,8 @@ public class SecurityConfig {
             //.requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/admin-only")).hasAuthority("ADMIN")
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
-            //.requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
-            .anyRequest().authenticated());
+            .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());
+            //.anyRequest().authenticated());
 
     return http.build();
   }

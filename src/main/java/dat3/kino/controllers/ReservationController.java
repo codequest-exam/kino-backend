@@ -1,9 +1,11 @@
 package dat3.kino.controllers;
 
 
+import dat3.kino.dto.ReservationRequestDto;
 import dat3.kino.dto.ReservationResponseDto;
 import dat3.kino.entity.Reservation;
 import dat3.kino.service.ReservationService;
+import dat3.security.entity.UserWithRoles;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -24,8 +26,12 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/{id}")
-    public ReservationResponseDto getReservationById(@PathVariable Long id, Principal principal){
+    public ReservationResponseDto getReservationByReservationId(@PathVariable Long id, Principal principal) {
         return reservationService.findById(id, principal);
+    }
+    @GetMapping(path = "/user/{user}")
+    public List<ReservationResponseDto> getReservationsByUserName(@PathVariable UserWithRoles user, Principal principal){
+        return reservationService.findByUsername(user, principal);
     }
 
     @GetMapping(path = "/showing/{id}")
@@ -34,8 +40,11 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ReservationResponseDto addReservation(@RequestBody Reservation reservationToAdd) {
-        return reservationService.addReservation(reservationToAdd);
+    public Reservation addReservation(@RequestBody Reservation reservation, Principal principal) {
+    //public ReservationResponseDto addReservation(@RequestBody Reservation reservation, Principal principal) {
+        return reservationService.addReservation(reservation, principal);
+        //return reservationService.addReservation(reservation, principal);
+        //return reservationService.addReservation(dto, principal);
     }
 
     @DeleteMapping(path = "/{id}")
