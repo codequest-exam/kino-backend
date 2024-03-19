@@ -10,8 +10,9 @@ import lombok.Setter;
 public class SeatResponseDto {
     private int seatNumber;
     private int seatRowNumber;
-//    private PriceClass priceClass;
+    //    private PriceClass priceClass;
     private double price;
+
     public SeatResponseDto(Seat seat) {
         this.seatNumber = seat.getSeatNumber();
         this.seatRowNumber = seat.getSeatRowNumber();

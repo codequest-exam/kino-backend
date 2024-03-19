@@ -32,4 +32,8 @@ public class Hall {
         this.seatRows = seatRows;
         this.seatsPerRow = seatsPerRow;
     }
+
+    public int getTotalSeats() {
+        return seatRows * seatsPerRow;
+    }
 }
