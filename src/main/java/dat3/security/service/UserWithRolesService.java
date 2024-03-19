@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserWithRolesService {
@@ -56,6 +57,10 @@ public class UserWithRolesService {
   public UserWithRolesResponse getUserWithRoles(String id) {
     UserWithRoles user = userWithRolesRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     return new UserWithRolesResponse(user);
+  }
+  public List<UserWithRolesResponse> getUsersWithRoles() {
+    List<UserWithRoles> usersWithRoles = userWithRolesRepository.findAll();
+    return usersWithRoles.stream().map(UserWithRolesResponse::new).collect(Collectors.toList());
   }
 
   //Make sure that this can ONLY be called by an admin
@@ -106,9 +111,5 @@ public class UserWithRolesService {
       }
       userWithRoles.addRole(roleToAssign);
     }
-  }
-
-  public List<UserWithRoles> getAllUsersWithRoles() {
-    return userWithRolesRepository.findAll();
   }
 }

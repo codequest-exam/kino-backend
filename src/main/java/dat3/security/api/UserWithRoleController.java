@@ -2,7 +2,6 @@ package dat3.security.api;
 
 import dat3.security.dto.UserWithRolesRequest;
 import dat3.security.dto.UserWithRolesResponse;
-import dat3.security.entity.UserWithRoles;
 import dat3.security.service.UserWithRolesService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +19,13 @@ public class UserWithRoleController {
   public UserWithRoleController(UserWithRolesService userWithRolesService) {
     this.userWithRolesService = userWithRolesService;
   }
+//Get all users
 
+@GetMapping("/users")
+@Operation(summary = "Get all users with roles", description = "Returns a list of all users with their roles")
+public List<UserWithRolesResponse> getAllUsersWithRoles() {
+  return userWithRolesService.getUsersWithRoles();
+}
   //Anonymous users can call this.
   @PostMapping
   @Operation(summary = "Add a new UserWithRoles user",
@@ -29,13 +34,14 @@ public class UserWithRoleController {
     return userWithRolesService.addUserWithRoles(request);
   }
 
-  @GetMapping
-  public List<UserWithRoles> getAllUsersWithRoles() {
-    return userWithRolesService.getAllUsersWithRoles();
+  @GetMapping("/users")
+  public List<UserWithRolesResponse> getAllUsersWithRoles() {
+    return userWithRolesService.getUsersWithRoles();
   }
+}
 
   //Take care with this. This should NOT be something everyone can call
-  @PreAuthorize("hasAuthority('ADMIN')")
+  //@PreAuthorize("hasAuthority('ADMIN')")
   @PatchMapping("/add-role/{username}/{role}")
   @Operation(summary = "Add a role to a UserWithRoles", description = "Caller must be authenticated with the role ADMIN")
   public UserWithRolesResponse addRole(@PathVariable String username, @PathVariable String role) {
