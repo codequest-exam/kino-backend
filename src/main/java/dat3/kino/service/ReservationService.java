@@ -3,20 +3,19 @@ package dat3.kino.service;
 import com.nimbusds.jose.proc.SecurityContext;
 import dat3.kino.dto.ReservationRequestDto;
 import dat3.kino.dto.ReservationResponseDto;
-import dat3.kino.entity.Reservation;
-import dat3.kino.entity.Seat;
-import dat3.kino.entity.Showing;
-import dat3.kino.repository.HallRepository;
-import dat3.kino.repository.ReservationRepository;
-import dat3.kino.repository.SeatRepository;
-import dat3.kino.repository.ShowingRepository;
+import dat3.kino.entity.*;
+import dat3.kino.repository.*;
 import dat3.security.entity.UserWithRoles;
 import dat3.security.repository.UserWithRolesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -28,13 +27,20 @@ public class ReservationService {
     UserWithRolesRepository userWithRolesRepository;
     HallRepository hallRepository;
     SeatRepository seatRepository;
+    TicketPriceModifierRepository ticketPriceModifierRepository;
+    @Autowired
+    PriceClassRepository priceClassRepository;
+    @Autowired
+    MovieLengthCategoryRepository movieLengthCategoryRepository;
 
-    public ReservationService(UserWithRolesRepository userWithRolesRepository, ReservationRepository reservationRepository, ShowingRepository showingRepository, HallRepository hallRepository, SeatRepository seatRepository) {
+    public ReservationService(TicketPriceModifierRepository ticketPriceModifierRepository,
+            UserWithRolesRepository userWithRolesRepository, ReservationRepository reservationRepository, ShowingRepository showingRepository, HallRepository hallRepository, SeatRepository seatRepository) {
         this.reservationRepository = reservationRepository;
         this.showingRepository = showingRepository;
         this.userWithRolesRepository = userWithRolesRepository;
         this.hallRepository = hallRepository;
         this.seatRepository = seatRepository;
+        this.ticketPriceModifierRepository = ticketPriceModifierRepository;
     }
 
     public List<ReservationResponseDto> findAll() {
@@ -73,42 +79,9 @@ public class ReservationService {
     public Reservation addReservation(Reservation reservation, Principal principal) {
         //public ReservationResponseDto addReservation(Reservation reservation, Principal principal) {
         //public ReservationRequestDto addReservation(ReservationRequestDto dto, Principal principal) {
-
-        Showing showing = showingRepository.findById(reservation.getShowing().getId()).orElseThrow(() -> new IllegalArgumentException("Showing does not exist"));
-
-        List<Seat> seats = reservation.getReservedSeats();
-        List<Seat> correctSeats = seatRepository.findAllByHallId(showing.getHall().getId());
-        System.out.println(correctSeats.size() + " " + seats.size());
-
-        double totalPrice = 0;
-
-        for (Seat seat : seats) {
-            System.out.println("SEAT " + seat);
-            // find the seat in the correctSeats list
-            // add the price to the total price
-
-            boolean seatCheck = correctSeats.stream().map(Seat::getId).anyMatch(s -> s.equals(seat.getId()));
-            if (!seatCheck) {throw new IllegalArgumentException("Seat does not exist in this hall");}
-            System.out.println("PRICE CLASS " + seat.getPriceClass());
-
-            //get the price class from the seat
-            //getPriceClass() is undefined
-
-
-            //totalPrice += seat.getPriceClass().getPrice();
-        }
-
-        if (seats.size() > 8) {
-            totalPrice = totalPrice * 0.9;
-        }
-        System.out.println("Total price: " + totalPrice);
-        System.out.println("Run time " + showing.getMovie().getRuntime());
-        // check the return type of getRunTime
-//        if (showing.getMovie().getRuntime() > 170)
-
-        reservation.setPrice(totalPrice);
-
         // set the user
+
+        System.out.println("PRINCIPAL " + principal);
         if (principal != null) {
             Optional<UserWithRoles> userCheck = userWithRolesRepository.findById(principal.getName());
             if (userCheck.isPresent()) {
@@ -119,10 +92,61 @@ public class ReservationService {
         }
         // phone number is required if user is not logged in - so make sure it's present in the request
         else {
-            if (reservation.getPhoneNumber() == 0) {
-                throw new IllegalArgumentException("Phone number is required when user is not logged in");
+            if (reservation.getEmail() == null) {
+                throw new IllegalArgumentException("Email is required when user is not logged in");
             }
         }
+
+        Showing showing = showingRepository.findById(reservation.getShowing().getId()).orElseThrow(() -> new IllegalArgumentException("Showing does not exist"));
+
+        List<Seat> seats = reservation.getReservedSeats();
+
+        double totalPrice = 0;
+        double movie3dPrice = 0;
+        double movieImaxPrice = 0;
+        if (showing.is3d()) {
+            movie3dPrice = priceClassRepository.findById("showingIs3d").orElseThrow(() -> new IllegalArgumentException("Price class does not exist")).getPrice();
+        }
+        if (showing.isImax()){
+            movieImaxPrice = priceClassRepository.findById("showingIsImax").orElseThrow(() -> new IllegalArgumentException("Price class does not exist")).getPrice();
+        }
+
+        for (Seat seatToLookFor : seats) {
+            //System.out.println("SEAT " + seatToLookFor);
+            Seat correctSeat = seatRepository.findById(seatToLookFor.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Seat does not exist"));
+            // Check if the seat exists in the hall
+            if (!Objects.equals(correctSeat.getHall().getId(), showing.getHall().getId())) {
+                throw new IllegalArgumentException("Seat does not exist in this hall");
+            }
+
+            totalPrice += correctSeat.getPriceClass().getPrice() + movie3dPrice + movieImaxPrice;
+        }
+
+
+
+        if (seats.size() > 8) {
+            totalPrice = totalPrice * 0.9;
+        }
+        System.out.println("Total price: " + totalPrice);
+        System.out.println("Run time " + showing.getMovie().getRuntime());
+
+        // check if the movies run time is longer than
+        List<MovieLengthCategory> lengthCategories =  movieLengthCategoryRepository.findAll();
+
+        // get the runtime from a string
+        int runTime = Integer.parseInt(showing.getMovie().getRuntime().split(" ")[0]);
+
+        for (MovieLengthCategory category : lengthCategories) {
+            if (runTime < category.getMaxMinutes() && runTime > category.getMinMinutes()) {
+                TicketPriceModifier priceModifier = ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist"));
+                totalPrice = priceModifier.isPositive() ? totalPrice * priceModifier.getPriceModifierPercent() : totalPrice / priceModifier.getPriceModifierPercent();
+            }
+        }
+        //if (showing.getMovie().getRuntime().split(" "))
+
+        reservation.setPrice(totalPrice);
+
+
 
 
         return reservationRepository.save(reservation);

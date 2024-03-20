@@ -28,7 +28,7 @@ public class Reservation {
     @ManyToOne
     private UserWithRoles user;
 
-    private int phoneNumber;
+    private String email;
 
     @NotNull
     @OneToMany

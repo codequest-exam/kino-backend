@@ -14,12 +14,10 @@ import lombok.Setter;
 public class PriceClass {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
     private String name;
     private double price;
 
-    public PriceClass(String name, int price) {
+    public PriceClass(String name, double price) {
         this.name = name;
         this.price = price;
     }
