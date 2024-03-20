@@ -76,17 +76,17 @@ public class InitData implements ApplicationRunner {
         //for (String imdbId : imdbIds) {
         // MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
 
-//           for (String imdbId : imdbIds) {
-////               //MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
-////
-////               // Create a movie entity and add it to the database
-//               try {
-//                   movieService.addMovie(imdbId);
-//               } catch (Exception e) {
-//                   System.err.println("Failed to add movie with IMDB ID: " + imdbId);
-//                   e.printStackTrace();
-//               }
-        //}
+           for (String imdbId : imdbIds) {
+//               //MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
+//
+//               // Create a movie entity and add it to the database
+               try {
+                   movieService.addMovie(imdbId);
+               } catch (Exception e) {
+                   System.err.println("Failed to add movie with IMDB ID: " + imdbId);
+                   e.printStackTrace();
+               }
+               }
 
         Movie movie1 = new Movie("The Godfather", "1972", "R", "24 Mar 1972", "175 min", "Crime, Drama", "Francis Ford Coppola", "Mario Puzo, Francis Ford Coppola", "Marlon Brando, Al Pacino, James Caan", "The Godfather \\\"Don\\\" Vito Corleone is the head of the Corleone mafia family in New York. He is at the event of his daughter's wedding. Michael, Vito's youngest son and a decorated WW II Marine is also present at the wedding. Michael seems to be uninterested in being a part of the family business. Vito is a powerful man, and is kind to all those who give him respect but is ruthless against those who do not. But when a powerful and treacherous rival wants to sell drugs and needs the Don's influence for the same, Vito refuses to do it. What follows is a clash between Vito's fading old values and the new ways which may cause Michael to do the thing he was most reluctant in doing and wage a mob war against all the other mafia families which could tear the Corleone family apart.", null, "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg", "100", "9.2", "1,997,580", "tt006846", "N/A", "True", false);
         Movie movie2 = new Movie("Dune: Part Two", "2024", "Pg-13", "01 Mar 2024", "166 min", "Action, Adventure, Drama", "Denis Villeneuve", "Dennis Villeneuve, Jon Spaiths, Frank Herbert", "Timothée Chalamet, Rebecca Ferguson, Zendaya", "Duke Paul Atreides joins the Fremen and begins a spiritual and martial journey to become Muad'dib, while trying to prevent the horrible but inevitable future he's witnessed: a Holy War in his name, spreading throughout the known universe.", null, "https://m.media-amazon.com/images/M/MV5BODdjMjM3NGQtZDA5OC00NGE4LWIyZDQtZjYwOGZlMTM5ZTQ1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg", "N/A", "9.1", "16,829", "tt1160419", "N/A", "True", false);
@@ -202,11 +202,11 @@ public class InitData implements ApplicationRunner {
 
 //        UserWithRoles user = userWithRolesRepository.findById("user1").orElseThrow(() -> new RuntimeException("User not found"));
 //
-        Reservation reservation1 = new Reservation(showing1, 100, List.of(seat1));
-        Reservation reservation2 = new Reservation(showing2, 200, List.of(seat2));
+        Reservation reservation1 = new Reservation(showing1, "bingchilling@gmail.com", 100, List.of(seat1));
+        Reservation reservation2 = new Reservation(showing2, "romania@gmail.com", 200, List.of(seat2));
 
-        Reservation reservation3 = new Reservation(showing3, 300, List.of(seat3));
-        Reservation reservation4 = new Reservation(showing4, 400, List.of(seat4));
+        Reservation reservation3 = new Reservation(showing3, "russia@gmail.com", 300, List.of(seat3));
+        Reservation reservation4 = new Reservation(showing4, "albania@gmail.com", 400, List.of(seat4));
 
         //     save the reservations
         reservationRepository.saveAll(Arrays.asList(reservation1, reservation2,

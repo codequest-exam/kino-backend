@@ -43,10 +43,11 @@ public class Reservation {
     public Reservation(){}
 
 
-    public Reservation(Showing showing, double price, List<Seat> seat) {
+    public Reservation(Showing showing, String email, double price, List<Seat> seat) {
         this.showing = showing;
         this.price = price;
         this.reservedSeats = seat;
+        this.email = email;
     }
 
     public Reservation(ReservationRequestDto reservationToAdd) {
