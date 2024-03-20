@@ -1,7 +1,5 @@
 package dat3.kino.service;
 
-import com.nimbusds.jose.proc.SecurityContext;
-import dat3.kino.dto.ReservationRequestDto;
 import dat3.kino.dto.ReservationResponseDto;
 import dat3.kino.entity.*;
 import dat3.kino.repository.*;
@@ -32,6 +30,8 @@ public class ReservationService {
     PriceClassRepository priceClassRepository;
     @Autowired
     MovieLengthCategoryRepository movieLengthCategoryRepository;
+    @Autowired
+    GroupSizeCategoryRepository groupSizeCategoryRepository;
 
     public ReservationService(TicketPriceModifierRepository ticketPriceModifierRepository,
             UserWithRolesRepository userWithRolesRepository, ReservationRepository reservationRepository, ShowingRepository showingRepository, HallRepository hallRepository, SeatRepository seatRepository) {
@@ -86,6 +86,7 @@ public class ReservationService {
             Optional<UserWithRoles> userCheck = userWithRolesRepository.findById(principal.getName());
             if (userCheck.isPresent()) {
                 reservation.setUser(userCheck.get());
+                reservation.setEmail(null);
             } else {
                 throw new IllegalArgumentException("User does not exist");
             }
@@ -105,11 +106,14 @@ public class ReservationService {
         double movie3dPrice = 0;
         double movieImaxPrice = 0;
         if (showing.is3d()) {
+            System.out.println("3D");
             movie3dPrice = priceClassRepository.findById("showingIs3d").orElseThrow(() -> new IllegalArgumentException("Price class does not exist")).getPrice();
         }
         if (showing.isImax()){
+            System.out.println("IMAX");
             movieImaxPrice = priceClassRepository.findById("showingIsImax").orElseThrow(() -> new IllegalArgumentException("Price class does not exist")).getPrice();
         }
+
 
         for (Seat seatToLookFor : seats) {
             //System.out.println("SEAT " + seatToLookFor);
@@ -123,9 +127,13 @@ public class ReservationService {
         }
 
 
-
-        if (seats.size() > 8) {
-            totalPrice = totalPrice * 0.9;
+        List<GroupSizeCategory> groupSizeCategories = groupSizeCategoryRepository.findAll();
+        for (GroupSizeCategory category : groupSizeCategories) {
+            if (seats.size() < category.getMaxSize() && seats.size() > category.getMinSize()) {
+                totalPrice *= ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist")).getPriceModifierPercent();
+                //TicketPriceModifier priceModifier = ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist"));
+                break;
+            }
         }
         System.out.println("Total price: " + totalPrice);
         System.out.println("Run time " + showing.getMovie().getRuntime());
@@ -138,12 +146,17 @@ public class ReservationService {
 
         for (MovieLengthCategory category : lengthCategories) {
             if (runTime < category.getMaxMinutes() && runTime > category.getMinMinutes()) {
-                TicketPriceModifier priceModifier = ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist"));
-                totalPrice = priceModifier.isPositive() ? totalPrice * priceModifier.getPriceModifierPercent() : totalPrice / priceModifier.getPriceModifierPercent();
+                System.out.println("Run time category: " + category.getName());
+                totalPrice *= ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist")).getPriceModifierPercent();
+                break;
             }
         }
-        //if (showing.getMovie().getRuntime().split(" "))
 
+        System.out.println("Total price: " + totalPrice);
+
+        // cut price to 2 decimals
+        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
+        System.out.println("Total price after rounding: " + totalPrice);
         reservation.setPrice(totalPrice);
 
 

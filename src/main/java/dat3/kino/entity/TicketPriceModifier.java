@@ -14,11 +14,17 @@ public class TicketPriceModifier {
     @Id
     private String name;
     private double priceModifierPercent;
-    private boolean isPositive;
+    private boolean isDiscount;
 
-    public TicketPriceModifier(String name, double priceModifierPercent, boolean isPositive) {
+    public TicketPriceModifier(String name, double priceModifierPercent, boolean isDiscount) {
         this.name = name;
         this.priceModifierPercent = priceModifierPercent;
-        this.isPositive = isPositive;
+        this.isDiscount = isDiscount;
+    }
+
+    public TicketPriceModifier(String name, double priceModifierPercent) {
+        this.name = name;
+        this.priceModifierPercent = priceModifierPercent;
+        this.isDiscount = priceModifierPercent < 0;
     }
 }

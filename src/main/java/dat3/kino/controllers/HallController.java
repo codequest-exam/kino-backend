@@ -20,18 +20,18 @@ public class HallController {
     }
 
     @GetMapping
-        public List<HallResponseDto> getAllRooms(){
+    public List<HallResponseDto> getAllRooms() {
         return hallService.getAll();
     }
 
     @GetMapping("/seats/{id}")
-        public List<SeatResponseDto> getSeatsForRoom(@PathVariable Long id){
+    public List<SeatResponseDto> getSeatsForRoom(@PathVariable Long id) {
         return hallService.getSeatsByRoom(id);
     }
 
 
     @GetMapping(path = "/{id}")
-    public Hall getRoomById(@PathVariable Long id){
+    public Hall getRoomById(@PathVariable Long id) {
         return hallService.findById(id);
     }
 
@@ -41,7 +41,7 @@ public class HallController {
     }
 
     @PutMapping(path = "/{id}")
-public Hall updateRoom(@RequestBody Hall roomToUpdate, @PathVariable Long id) {
+    public Hall updateRoom(@RequestBody Hall roomToUpdate, @PathVariable Long id) {
         return hallService.updateRoom(roomToUpdate, id);
     }
 }

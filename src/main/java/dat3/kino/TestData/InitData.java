@@ -41,6 +41,9 @@ public class InitData implements ApplicationRunner {
     private final TicketPriceModifierRepository ticketPriceModifierRepository;
     @Autowired
     private MovieLengthCategoryRepository movieLengthCategoryRepository;
+    @Autowired
+    private GroupSizeCategoryRepository groupSizeCategoryRepository;
+
 
     public InitData(TicketPriceModifierRepository ticketPriceModifierRepository,
             UserWithRolesRepository userWithRolesRepository,
@@ -157,15 +160,21 @@ public class InitData implements ApplicationRunner {
         PriceClass priceClass4 = new PriceClass("showingIs3d", 25);
         PriceClass priceClass5 = new PriceClass("showingIsImax", 30);
 
-        TicketPriceModifier priceModifier = new TicketPriceModifier("groupDiscount", 1.07, true);
-        TicketPriceModifier priceModifier2 = new TicketPriceModifier("allNight", 1.1, false);
-        TicketPriceModifier priceModifier3 = new TicketPriceModifier("shortFilm", 1.2, true);
+        TicketPriceModifier priceModifier = new TicketPriceModifier("groupDiscount", 0.93);
+        TicketPriceModifier priceModifier2 = new TicketPriceModifier("allNight", 1.1);
+        TicketPriceModifier priceModifier3 = new TicketPriceModifier("shortFilm", 0.8);
 
         MovieLengthCategory allNight = new MovieLengthCategory("allNight",170, 999);
         MovieLengthCategory shortFilm = new MovieLengthCategory("shortFilm",0, 60);
 
+        GroupSizeCategory groupDiscount = new GroupSizeCategory("groupDiscount", 8, 999);
+
+
+
         priceClassRepository.saveAll(Arrays.asList(priceClass1, priceClass2, priceClass3, priceClass4, priceClass5));
         ticketPriceModifierRepository.saveAll(Arrays.asList(priceModifier, priceModifier2, priceModifier3));
+        movieLengthCategoryRepository.saveAll(Arrays.asList(allNight, shortFilm));
+        groupSizeCategoryRepository.save(groupDiscount);
 
 
         //loop through all the halls
