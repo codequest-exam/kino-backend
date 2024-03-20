@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 public class ReservationResponseDto {
     private Long id;
+    private String email;
     private UserWithRolesResponse user;
     private ShowingResponseDto showing;
     private double price;
@@ -24,6 +25,7 @@ public class ReservationResponseDto {
         // reserved seats are a list of seat response dto
         //this.reservedSeats = List.of(reservation.getReservedSeats().forEach(seat -> new SeatResponseDto(seat)));
         this.reservedSeats = reservation.getReservedSeats().stream().map(SeatResponseDto::new).toList();
+        this.email = reservation.getEmail();
         //this.showing = new ShowingResponseDto(reservation.getShowing());
         //this
 
