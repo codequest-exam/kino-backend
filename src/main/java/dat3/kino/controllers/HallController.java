@@ -27,6 +27,10 @@ public class HallController {
     public Hall getRoomById(@PathVariable Long id){
         return hallService.findById(id);
     }
+    @GetMapping(path = "/cinema/{id}")
+    public Hall getRoomByCinemaId(@PathVariable Long id){
+        return hallService.findByCinemaId(id);
+    }
 
     @PostMapping
     public Hall createRoom(@RequestBody Hall newRoom) {

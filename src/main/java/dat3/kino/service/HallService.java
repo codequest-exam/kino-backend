@@ -29,6 +29,9 @@ public class HallService {
     public Hall findById(Long id) {
         return hallRepository.findById(id).orElse(null);
     }
+    public Hall findByCinemaId(Long id) {
+        return hallRepository.findByCinemaId(id);
+    }
 
     public Hall updateRoom(Hall roomToUpdate, Long id) {
         Hall room = hallRepository.findById(id).orElse(null);
