@@ -13,11 +13,13 @@ public class MovieResponseDto {
     private String imdbRating;
     private String poster;
     private String genre;
+    private String year;
     public MovieResponseDto(Movie movie) {
         this.id = movie.getId();
         this.title = movie.getTitle();
         this.imdbRating = movie.getImdbRating();
         this.poster = movie.getPoster();
         this.genre = movie.getGenre();
+        this.year = movie.getYear();
     }
 }
