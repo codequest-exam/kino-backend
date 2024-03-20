@@ -2,8 +2,11 @@ package dat3.kino.service;
 
 
 import dat3.kino.dto.HallResponseDto;
+import dat3.kino.dto.SeatResponseDto;
 import dat3.kino.entity.Hall;
+import dat3.kino.entity.Seat;
 import dat3.kino.repository.HallRepository;
+import dat3.kino.repository.SeatRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +15,10 @@ import java.util.List;
 public class HallService {
 
     HallRepository hallRepository;
+    SeatRepository seatRepository;
 
-    public HallService(HallRepository hallRepository) {
-        this.hallRepository = hallRepository;
+    public HallService(HallRepository hallRepository, SeatRepository seatRepository) {
+        this.hallRepository = hallRepository; this.seatRepository = seatRepository;
     }
 
     public Hall addRoom(Hall roomToAdd) {
@@ -41,5 +45,12 @@ public class HallService {
         roomToUpdate.setId( room.getId());
 
         return hallRepository.save(roomToUpdate);
+    }
+
+    public List<SeatResponseDto> getSeatsByRoom(Long hallId) {
+        System.out.println("@@@@@@@ SEAT PRICE CLASS" +seatRepository.findById(1L).get().getPriceClass().getPrice());
+        List<Seat> seats = seatRepository.findAllByHallId(hallId);
+        return seats.stream().map(SeatResponseDto::new).toList();
+        //return seatRepository.findAllByHallId(hallId);
     }
 }

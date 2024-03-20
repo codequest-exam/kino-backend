@@ -1,7 +1,9 @@
 package dat3.kino.controllers;
 
 import dat3.kino.dto.HallResponseDto;
+import dat3.kino.dto.SeatResponseDto;
 import dat3.kino.entity.Hall;
+import dat3.kino.entity.Seat;
 import dat3.kino.service.HallService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +20,18 @@ public class HallController {
     }
 
     @GetMapping
-        public List<HallResponseDto> getAllRooms(){
+    public List<HallResponseDto> getAllRooms() {
         return hallService.getAll();
+    }
+
+    @GetMapping("/seats/{id}")
+    public List<SeatResponseDto> getSeatsForRoom(@PathVariable Long id) {
+        return hallService.getSeatsByRoom(id);
     }
 
 
     @GetMapping(path = "/{id}")
-    public Hall getRoomById(@PathVariable Long id){
+    public Hall getRoomById(@PathVariable Long id) {
         return hallService.findById(id);
     }
     @GetMapping(path = "/cinema/{id}")
@@ -38,7 +45,7 @@ public class HallController {
     }
 
     @PutMapping(path = "/{id}")
-public Hall updateRoom(@RequestBody Hall roomToUpdate, @PathVariable Long id) {
+    public Hall updateRoom(@RequestBody Hall roomToUpdate, @PathVariable Long id) {
         return hallService.updateRoom(roomToUpdate, id);
     }
 }
