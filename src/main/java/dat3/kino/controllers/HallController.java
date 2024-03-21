@@ -50,6 +50,11 @@ public class HallController {
     public Hall getHallById(@PathVariable Long id) {
         return hallService.findById(id);
     }
+    @Operation(summary = "Get one hall by cinema id",
+            description = "Returns a hall by cinema id",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "A hall with given cinema id"),
+                    @ApiResponse(responseCode = "400", content = @Content, description = "No hall found with given cinema id")})
     @GetMapping(path = "/cinema/{id}")
     public Hall getHallByCinemaId(@PathVariable Long id){
         return hallService.findByCinemaId(id);
