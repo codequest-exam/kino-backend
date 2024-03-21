@@ -163,18 +163,20 @@ public class InitData implements ApplicationRunner {
         TicketPriceModifier priceModifier = new TicketPriceModifier("groupDiscount", 0.93);
         TicketPriceModifier priceModifier2 = new TicketPriceModifier("allNight", 1.1);
         TicketPriceModifier priceModifier3 = new TicketPriceModifier("shortFilm", 0.8);
+        TicketPriceModifier priceModifier4 = new TicketPriceModifier("reservationFee", 1.03);
 
         MovieLengthCategory allNight = new MovieLengthCategory("allNight",170, 999);
         MovieLengthCategory shortFilm = new MovieLengthCategory("shortFilm",0, 60);
 
-        GroupSizeCategory groupDiscount = new GroupSizeCategory("groupDiscount", 8, 999);
+        GroupSizeCategory groupDiscount = new GroupSizeCategory("groupDiscount", 10, 999);
+        GroupSizeCategory reservationFee = new GroupSizeCategory("reservationFee", 1, 5);
 
 
 
         priceClassRepository.saveAll(Arrays.asList(priceClass1, priceClass2, priceClass3, priceClass4, priceClass5));
-        ticketPriceModifierRepository.saveAll(Arrays.asList(priceModifier, priceModifier2, priceModifier3));
+        ticketPriceModifierRepository.saveAll(Arrays.asList(priceModifier, priceModifier2, priceModifier3, priceModifier4));
         movieLengthCategoryRepository.saveAll(Arrays.asList(allNight, shortFilm));
-        groupSizeCategoryRepository.save(groupDiscount);
+        groupSizeCategoryRepository.saveAll(Arrays.asList(groupDiscount, reservationFee));
 
 
         //loop through all the halls

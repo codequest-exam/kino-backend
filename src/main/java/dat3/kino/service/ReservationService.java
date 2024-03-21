@@ -129,7 +129,7 @@ public class ReservationService {
 
         List<GroupSizeCategory> groupSizeCategories = groupSizeCategoryRepository.findAll();
         for (GroupSizeCategory category : groupSizeCategories) {
-            if (seats.size() < category.getMaxSize() && seats.size() > category.getMinSize()) {
+            if (seats.size() <= category.getMaxSize() && seats.size() >= category.getMinSize()) {
                 totalPrice *= ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist")).getPriceModifierPercent();
                 //TicketPriceModifier priceModifier = ticketPriceModifierRepository.findById(category.getName()).orElseThrow(() -> new IllegalArgumentException("Price modifier does not exist"));
                 break;
@@ -158,8 +158,6 @@ public class ReservationService {
         totalPrice = Math.round(totalPrice * 100.0) / 100.0;
         System.out.println("Total price after rounding: " + totalPrice);
         reservation.setPrice(totalPrice);
-
-
 
 
         return reservationRepository.save(reservation);

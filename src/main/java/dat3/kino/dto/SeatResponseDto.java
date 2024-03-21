@@ -13,9 +13,11 @@ public class SeatResponseDto {
     private int seatRowNumber;
     //    private PriceClass priceClass;
     private double price;
+    private String priceClass;
 
     public SeatResponseDto(Seat seat) {
         this.id = seat.getId();
+        this.priceClass = seat.getPriceClass().getName();
         this.seatNumber = seat.getSeatNumber();
         this.seatRowNumber = seat.getSeatRowNumber();
         this.price = seat.getPriceClass().getPrice();
