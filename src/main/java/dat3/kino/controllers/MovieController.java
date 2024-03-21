@@ -37,7 +37,7 @@ public class MovieController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "A movie with given imdbId"),
                     @ApiResponse(responseCode = "400", content = @Content, description = "No movie found with given imdbId")})
-    @RequestMapping("/imdbid/{imdbId}")
+    @GetMapping("/imdbid/{imdbId}")
     public Movie getMovie(@PathVariable String imdbId) {
         return movieService.getMovieByImdbId(imdbId);
     }
