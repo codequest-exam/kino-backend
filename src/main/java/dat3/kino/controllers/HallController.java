@@ -36,7 +36,7 @@ public class HallController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "A list of all seats for a hall with given id"),
                     @ApiResponse(responseCode = "400", content = @Content, description = "No hall found with given id")})
-    @GetMapping("/seats/{id}")
+    @GetMapping("/{id}/seats")
     public List<SeatResponseDto> getSeatsForHall(@PathVariable Long id) {
         return hallService.getSeatsByHall(id);
     }
