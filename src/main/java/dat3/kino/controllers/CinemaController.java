@@ -13,7 +13,7 @@ import java.util.List;
 @OpenAPIDefinition(
         info = @io.swagger.v3.oas.annotations.info.Info(
                 title = "Cinema API",
-                version = "0.1",
+                version = "0.8",
                 description = "Dokumentation for RestfulKino API af codeQuest"
         )
 
