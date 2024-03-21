@@ -21,9 +21,9 @@ public class HallService {
         this.hallRepository = hallRepository; this.seatRepository = seatRepository;
     }
 
-    public Hall addRoom(Hall roomToAdd) {
+    public Hall addHall(Hall hallToAdd) {
 
-        return hallRepository.save(roomToAdd);
+        return hallRepository.save(hallToAdd);
     }
 
     public List<HallResponseDto> getAll() {
@@ -37,17 +37,17 @@ public class HallService {
         return hallRepository.findByCinemaId(id);
     }
 
-    public Hall updateRoom(Hall roomToUpdate, Long id) {
-        Hall room = hallRepository.findById(id).orElse(null);
-        if (room == null) {
+    public Hall updateHall(Hall hallToUpdate, Long id) {
+        Hall hall = hallRepository.findById(id).orElse(null);
+        if (hall == null) {
             return null;
         }
-        roomToUpdate.setId( room.getId());
+        hallToUpdate.setId( hall.getId());
 
-        return hallRepository.save(roomToUpdate);
+        return hallRepository.save(hallToUpdate);
     }
 
-    public List<SeatResponseDto> getSeatsByRoom(Long hallId) {
+    public List<SeatResponseDto> getSeatsByHall(Long hallId) {
         System.out.println("@@@@@@@ SEAT PRICE CLASS" +seatRepository.findById(1L).get().getPriceClass().getPrice());
         List<Seat> seats = seatRepository.findAllByHallId(hallId);
         return seats.stream().map(SeatResponseDto::new).toList();

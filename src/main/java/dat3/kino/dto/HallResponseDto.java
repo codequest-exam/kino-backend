@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 public class HallResponseDto {
     private Long id;
-    private int roomNumber;
+    private int hallNumber;
     private Cinema cinema;
     public HallResponseDto(Hall hall) {
         this.id = hall.getId();
-        this.roomNumber = hall.getRoomNumber();
+        this.hallNumber = hall.getHallNumber();
         this.cinema = hall.getCinema();
     }
 }

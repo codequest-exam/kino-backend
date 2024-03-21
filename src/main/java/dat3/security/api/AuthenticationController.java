@@ -5,6 +5,8 @@ import dat3.security.dto.LoginResponse;
 import dat3.security.entity.UserWithRoles;
 import dat3.security.service.UserDetailsServiceImp;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,8 +51,13 @@ public class AuthenticationController {
     this.encoder = encoder;
   }
 
+  @Operation(summary = "Login",
+          description = "Use this to login and get a token",
+          responses = {
+                  @ApiResponse(responseCode = "200", description = "Successfully logged in and got a token"),
+                  @ApiResponse(responseCode = "400", content = @Content, description = "Could not log in")})
+
   @PostMapping("login")
-  @Operation(summary = "Login", description = "Use this to login and get a token")
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 
     try {
