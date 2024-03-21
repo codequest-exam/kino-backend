@@ -1,5 +1,6 @@
 package dat3.kino.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,9 @@ public class Showing {
     @ManyToOne
     private Hall hall;
     private LocalDateTime startTime;
+    @JsonProperty("is3d")
     private boolean is3d;
+    @JsonProperty("isImax")
     private boolean isImax;
 
     public Showing(Movie movie,
