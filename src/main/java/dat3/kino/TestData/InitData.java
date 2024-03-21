@@ -70,7 +70,7 @@ public class InitData implements ApplicationRunner {
     public void setupAll() {
 
         // List of IMDB IDs of movies to initialize
-        List<String> imdbIds = List.of("tt0110912", "tt0137523", "tt0167260", "tt1375666", "tt0133093", "tt0080684", "tt0088763", "tt0172495"); // Example IMDB IDs
+        List<String> imdbIds = List.of("tt0110912", "tt0137523", "tt0167260", "tt1375666", "tt0133093", "tt0080684", "tt0088763", "tt0172495","tt0347149", "tt0080678", "tt0107207", "tt0097165", "tt0103639", "tt0892769", "tt0198781", "tt1201607", "tt0081505", "tt4154796"); // Example IMDB IDs
 
         // Fetch movie details using OMDB API and add to the database
         //for (String imdbId : imdbIds) {

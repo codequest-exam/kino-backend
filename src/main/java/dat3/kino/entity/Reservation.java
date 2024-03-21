@@ -31,8 +31,11 @@ public class Reservation {
     private String email;
 
     @NotNull
-    @OneToMany
+    @ManyToMany
     private List<Seat> reservedSeats;
+//    @NotNull
+//    @OneToMany
+//    private List<Seat> reservedSeats;
 
     public Reservation(Showing showing, double price, List<Seat> reservedSeats, UserWithRoles user) {
         this.showing = showing;
