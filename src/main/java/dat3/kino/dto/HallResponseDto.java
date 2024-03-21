@@ -8,10 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HallResponseDto {
-    private int roomNumber;
+    private Long id;
+    private int hallNumber;
     private Cinema cinema;
     public HallResponseDto(Hall hall) {
-        this.roomNumber = hall.getRoomNumber();
+        this.id = hall.getId();
+        this.hallNumber = hall.getHallNumber();
         this.cinema = hall.getCinema();
     }
 }

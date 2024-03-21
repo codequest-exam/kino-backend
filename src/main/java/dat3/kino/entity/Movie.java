@@ -18,7 +18,7 @@ public class Movie {
     private String title;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String year;
     private String rated;
     private String released;

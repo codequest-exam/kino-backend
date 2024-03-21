@@ -56,4 +56,8 @@ public class ShowingService {
                 .toList();
         return unavailableSeats;
     }
+
+    public List<ShowingResponseDto> findAllByMovie(Long id) {
+        return showingRepository.findAllByMovieId(id).stream().map(ShowingResponseDto::new).toList();
+    }
 }

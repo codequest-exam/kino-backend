@@ -1,5 +1,6 @@
 package dat3.kino.entity;
 
+import dat3.kino.dto.ReservationRequestDto;
 import dat3.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -25,7 +26,9 @@ public class Reservation {
     private double price;
 
     @ManyToOne
-    UserWithRoles user;
+    private UserWithRoles user;
+
+    private String email;
 
     @NotNull
     @OneToMany
@@ -40,9 +43,15 @@ public class Reservation {
     public Reservation(){}
 
 
-    public Reservation(Showing showing, double price, List<Seat> seat) {
+    public Reservation(Showing showing, String email, double price, List<Seat> seat) {
         this.showing = showing;
         this.price = price;
         this.reservedSeats = seat;
+        this.email = email;
+    }
+
+    public Reservation(ReservationRequestDto reservationToAdd) {
+        this.showing = reservationToAdd.getShowing();
+        this.reservedSeats = reservationToAdd.getReservedSeats();
     }
 }

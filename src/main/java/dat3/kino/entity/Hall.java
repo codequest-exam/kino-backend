@@ -15,7 +15,7 @@ public class Hall {
     @ManyToOne
     private Cinema cinema;
 
-    private int roomNumber;
+    private int hallNumber;
     private boolean supports3d;
     private boolean supportsImax;
     private int seatRows;
@@ -24,12 +24,16 @@ public class Hall {
     public Hall() {
     }
 
-    public Hall(Cinema cinema, int roomNumber, boolean supports3d, boolean supportsImax, int seatRows, int seatsPerRow) {
+    public Hall(Cinema cinema, int hallNumber, boolean supports3d, boolean supportsImax, int seatRows, int seatsPerRow) {
         this.cinema = cinema;
-        this.roomNumber = roomNumber;
+        this.hallNumber = hallNumber;
         this.supports3d = supports3d;
         this.supportsImax = supportsImax;
         this.seatRows = seatRows;
         this.seatsPerRow = seatsPerRow;
+    }
+
+    public int getTotalSeats() {
+        return seatRows * seatsPerRow;
     }
 }
