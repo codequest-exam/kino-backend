@@ -51,7 +51,7 @@ public class HallController {
         return hallService.findById(id);
     }
     @GetMapping(path = "/cinema/{id}")
-    public Hall getRoomByCinemaId(@PathVariable Long id){
+    public Hall getHallByCinemaId(@PathVariable Long id){
         return hallService.findByCinemaId(id);
     }
 
