@@ -38,6 +38,11 @@ public class ShowingController {
     public List<ShowingResponseDto> getAllShowings(){
         return showingService.findAll();
     }
+    @GetMapping(path = "/movie/{id}")
+    public List<ShowingResponseDto> getAllShowingsByMovie(@PathVariable Long id){
+        System.out.println("Getting all showings by movie");
+        return showingService.findAllByMovie(id);
+    }
 
     @Operation(summary = "Get one showing by id",
             description = "Returns a showing by id",

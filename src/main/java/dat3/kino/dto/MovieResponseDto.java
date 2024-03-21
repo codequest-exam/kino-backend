@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MovieResponseDto {
-    private int id;
+    private Long id;
     private String title;
     private String imdbRating;
     private String poster;
