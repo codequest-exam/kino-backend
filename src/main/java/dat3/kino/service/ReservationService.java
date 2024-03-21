@@ -114,7 +114,13 @@ public class ReservationService {
             movieImaxPrice = priceClassRepository.findById("showingIsImax").orElseThrow(() -> new IllegalArgumentException("Price class does not exist")).getPrice();
         }
 
-
+        reservationRepository.findAllByShowingId(showing.getId()).forEach(reser -> {
+            for (Seat seat : reser.getReservedSeats()) {
+                if (seats.stream().map(Seat::getId).anyMatch(seatId -> seatId.equals(seat.getId()))) {
+                    throw new IllegalArgumentException("Seat is already reserved");
+                }
+            }
+        });
         for (Seat seatToLookFor : seats) {
             //System.out.println("SEAT " + seatToLookFor);
             Seat correctSeat = seatRepository.findById(seatToLookFor.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Seat does not exist"));
