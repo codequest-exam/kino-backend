@@ -81,6 +81,9 @@ public class ReservationService {
         //public ReservationRequestDto addReservation(ReservationRequestDto dto, Principal principal) {
         // set the user
 
+        if (reservation.getReservedSeats().isEmpty()) {
+            throw new IllegalArgumentException("No seats reserved");
+        }
         System.out.println("PRINCIPAL " + principal);
         if (principal != null) {
             Optional<UserWithRoles> userCheck = userWithRolesRepository.findById(principal.getName());

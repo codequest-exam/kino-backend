@@ -110,14 +110,14 @@ public class InitData implements ApplicationRunner {
         cinemaRepository.save(cinema2);
 
         //Creating cinema halls for cinema 1
-        Hall hall1 = new Hall(cinema1, 1, true, false, 10, 15);
-        Hall hall2 = new Hall(cinema1, 2, true, true, 12, 20);
+        Hall hall1 = new Hall(cinema1, 1, true, false, 20, 15);
+        Hall hall2 = new Hall(cinema1, 2, true, true, 22, 12);
 
         // Creating cinema halls for cinema 2
-        Hall hall3 = new Hall(cinema2, 1, false, false, 8, 10);
-        Hall hall5 = new Hall(cinema2, 3, true, false, 10, 15);
-        Hall hall4 = new Hall(cinema2, 2, true, true, 10, 15);
-        Hall hall6 = new Hall(cinema2, 4, false, true, 8, 12);
+        Hall hall3 = new Hall(cinema2, 1, false, false, 21, 16);
+        Hall hall5 = new Hall(cinema2, 3, true, false, 23, 13);
+        Hall hall4 = new Hall(cinema2, 2, true, true, 24, 14);
+        Hall hall6 = new Hall(cinema2, 4, false, true, 25, 11);
 
         // Saving cinema halls to the repository
         hallRepository.save(hall1);
