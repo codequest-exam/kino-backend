@@ -179,7 +179,7 @@ public class InitData implements ApplicationRunner {
         groupSizeCategoryRepository.saveAll(Arrays.asList(groupDiscount, reservationFee));
 
 
-        //loop through all the halls
+        //loop through all the hallssss
         for (Hall hall : hallRepository.findAll()) {
             // loop through all the seats in the hall
             List<Seat> seats = new ArrayList<>();
