@@ -1,9 +1,19 @@
 package dat3.kino.TestData;
 
 import dat3.kino.api_facade.OmdbFacade;
-import dat3.kino.entity.*;
+import dat3.kino.cinema.Cinema;
+import dat3.kino.cinema.CinemaRepository;
+import dat3.kino.hall.Hall;
+import dat3.kino.hall.HallRepository;
+import dat3.kino.movie.Movie;
+import dat3.kino.movie.MovieRepository;
 import dat3.kino.repository.*;
-import dat3.kino.service.MovieService;
+import dat3.kino.reservation.*;
+import dat3.kino.movie.MovieService;
+import dat3.kino.seat.PriceClass;
+import dat3.kino.seat.Seat;
+import dat3.kino.showing.Showing;
+import dat3.kino.showing.ShowingRepository;
 import dat3.security.repository.UserWithRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

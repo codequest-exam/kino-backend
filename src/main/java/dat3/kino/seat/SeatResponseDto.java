@@ -1,0 +1,24 @@
+package dat3.kino.seat;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class SeatResponseDto {
+    private Long id;
+    private int seatNumber;
+    private int seatRowNumber;
+    //    private PriceClass priceClass;
+    private double price;
+    private String priceClass;
+
+    public SeatResponseDto(Seat seat) {
+        this.id = seat.getId();
+        this.priceClass = seat.getPriceClass().getName();
+        this.seatNumber = seat.getSeatNumber();
+        this.seatRowNumber = seat.getSeatRowNumber();
+        this.price = seat.getPriceClass().getPrice();
+        //this.priceClass = seat.getPriceClass();
+    }
+}
